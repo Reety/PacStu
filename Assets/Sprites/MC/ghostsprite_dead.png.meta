@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -97,7 +97,175 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: deadtourist_0
+      name: ghostsprite_dead_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d02509213f0b3df45ad5edd52fab34c0
+      internalID: -365570503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfc3c965389e1964faa052b32dcd6b55
+      internalID: -1349914731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ec7717d376edb489796546c849f31a
+      internalID: -1901577578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22a607ecefbac804a9a9592851534c0e
+      internalID: -100459517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b67bb714391714896b81cd87353fba
+      internalID: -155172662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca2e6390eaad53c47888a84a6a85a9b5
+      internalID: 2105550511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8827e7975a6f6a54fba063dd5aadc9f0
+      internalID: -2123409285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_7
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4f913e8839cd7c479091d3673bf90ca
+      internalID: 362162906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_8
       rect:
         serializedVersion: 2
         x: 0
@@ -109,37 +277,79 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 227957a415c6d8180800000000000000
-      internalID: -9111507374703274206
+      spriteID: b89402bf301da3c43b3429d9806a1d86
+      internalID: 687835755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_1
+      name: ghostsprite_dead_9
       rect:
         serializedVersion: 2
         x: 16
-        y: 17
+        y: 16
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3a73ec15a568e7cc0800000000000000
-      internalID: -3711381320429062237
+      spriteID: e448b98a06c320241bc43e9c0922191c
+      internalID: -603484557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_2
+      name: ghostsprite_dead_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c219b9c43c7c7149aceeb0f0de8ec23
+      internalID: -1155282858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42835eae91d2c0143934f361f500132e
+      internalID: -1070276243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_12
       rect:
         serializedVersion: 2
         x: 0
@@ -151,31 +361,52 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 13fe81aafb424cec0800000000000000
-      internalID: -3547670200849993935
+      spriteID: 2549c56ad24582d4f94762827821a053
+      internalID: 67396851
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_3
+      name: ghostsprite_dead_13
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 60f0bb3bde0af40b0800000000000000
-      internalID: -5742194057091019002
+      spriteID: c6eac5c3e822602488968b2a38655064
+      internalID: -1112496807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghostsprite_dead_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0fbbaa201a921b4b9ba76c12cdf922d
+      internalID: 844396074
       vertices: []
       indices: 
       edges: []
@@ -183,7 +414,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 91dfeec1f1010af4786964321e67c833
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +422,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      deadtourist_0: -9111507374703274206
-      deadtourist_1: -3711381320429062237
-      deadtourist_2: -3547670200849993935
-      deadtourist_3: -5742194057091019002
+      ghostsprite_dead_0: -365570503
+      ghostsprite_dead_1: -1349914731
+      ghostsprite_dead_10: -1155282858
+      ghostsprite_dead_11: -1070276243
+      ghostsprite_dead_12: 67396851
+      ghostsprite_dead_13: -1112496807
+      ghostsprite_dead_14: 844396074
+      ghostsprite_dead_2: -1901577578
+      ghostsprite_dead_3: -100459517
+      ghostsprite_dead_4: -155172662
+      ghostsprite_dead_5: 2105550511
+      ghostsprite_dead_6: -2123409285
+      ghostsprite_dead_7: 362162906
+      ghostsprite_dead_8: 687835755
+      ghostsprite_dead_9: -603484557
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

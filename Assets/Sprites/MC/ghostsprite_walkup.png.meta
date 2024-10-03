@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: deadtourist_0
+      name: ghostsprite_walkup_0
       rect:
         serializedVersion: 2
         x: 0
@@ -109,37 +109,37 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 227957a415c6d8180800000000000000
-      internalID: -9111507374703274206
+      spriteID: 7ab8d4fb6405e95499747f8a68c7c466
+      internalID: 1660324614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_1
+      name: ghostsprite_walkup_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 17
+        y: 16
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3a73ec15a568e7cc0800000000000000
-      internalID: -3711381320429062237
+      spriteID: 18c77ed7a265dfd4f9116e6dfa2c6771
+      internalID: 219512379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_2
+      name: ghostsprite_walkup_2
       rect:
         serializedVersion: 2
         x: 0
@@ -151,31 +151,31 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 13fe81aafb424cec0800000000000000
-      internalID: -3547670200849993935
+      spriteID: 658545257ed38634ba9d41c57add670a
+      internalID: 706448977
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_3
+      name: ghostsprite_walkup_3
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 60f0bb3bde0af40b0800000000000000
-      internalID: -5742194057091019002
+      spriteID: 1b86336f9954318458abfb1ebd8a1fe7
+      internalID: -1018546042
       vertices: []
       indices: 
       edges: []
@@ -183,7 +183,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 305b6a7d6bba7cf40ba6825a0698d304
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      deadtourist_0: -9111507374703274206
-      deadtourist_1: -3711381320429062237
-      deadtourist_2: -3547670200849993935
-      deadtourist_3: -5742194057091019002
+      ghostsprite_walkup_0: 1660324614
+      ghostsprite_walkup_1: 219512379
+      ghostsprite_walkup_2: 706448977
+      ghostsprite_walkup_3: -1018546042
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc61ae618f75ef74d9c4fa06df863eef
+guid: beaf134d15190d44695d9d717fba7c9c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghost_mc_0
+      name: yellowtourist_side_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cb167cb12739e24887033cc14e668b9
-      internalID: -136964690
+      spriteID: 97fa4781c894a6d4986038878037ca8c
+      internalID: -279571356
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_1
+      name: yellowtourist_side_1
       rect:
         serializedVersion: 2
         x: 16
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6572ad6a285dea4594b17b1c2931b8a
-      internalID: 1934569256
+      spriteID: be89c1bf016685649bf98a10f409673c
+      internalID: -1660751987
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_2
+      name: yellowtourist_side_2
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70900332ef0bba643a9fbc6d56413caf
-      internalID: -1415562817
+      spriteID: 802d5b2295fe83f43a6e01860375f70c
+      internalID: 1301649654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_3
+      name: yellowtourist_side_3
       rect:
         serializedVersion: 2
         x: 16
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc646b5678cf1c9459d4ea53924c4564
-      internalID: -1965039440
+      spriteID: bb035cfb18b95614982c6777b6c717d7
+      internalID: 754495944
       vertices: []
       indices: 
       edges: []
@@ -183,7 +183,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 13b29012d76d6cd43a25d41e37c8e3a9
+    spriteID: bbde82c97dcaf9e4a8213bfd8d76ba5c
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghost_mc_0: -136964690
-      ghost_mc_1: 1934569256
-      ghost_mc_2: -1415562817
-      ghost_mc_3: -1965039440
+      yellowtourist_side_0: -279571356
+      yellowtourist_side_1: -1660751987
+      yellowtourist_side_2: 1301649654
+      yellowtourist_side_3: 754495944
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

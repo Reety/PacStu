@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc61ae618f75ef74d9c4fa06df863eef
+guid: 2ccacf541c6779241a909e54edb22b27
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghost_mc_0
+      name: bluerourist_walkup_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cb167cb12739e24887033cc14e668b9
-      internalID: -136964690
+      spriteID: cc752aeaea6e443479ad64bedda6b270
+      internalID: 1200666212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_1
+      name: bluerourist_walkup_1
       rect:
         serializedVersion: 2
         x: 16
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6572ad6a285dea4594b17b1c2931b8a
-      internalID: 1934569256
+      spriteID: 09747ac9ce5af94449a75865a2646309
+      internalID: -1190426862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_2
+      name: bluerourist_walkup_2
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70900332ef0bba643a9fbc6d56413caf
-      internalID: -1415562817
+      spriteID: 45f3125e9597af544927fa1cd7a219ba
+      internalID: 217379188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_3
+      name: bluerourist_walkup_3
       rect:
         serializedVersion: 2
         x: 16
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc646b5678cf1c9459d4ea53924c4564
-      internalID: -1965039440
+      spriteID: 579a79e205a5c22488792dad99e969e6
+      internalID: -1422615176
       vertices: []
       indices: 
       edges: []
@@ -183,7 +183,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 13b29012d76d6cd43a25d41e37c8e3a9
+    spriteID: 520809a6a7964824b9ac7410f0a7d81e
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghost_mc_0: -136964690
-      ghost_mc_1: 1934569256
-      ghost_mc_2: -1415562817
-      ghost_mc_3: -1965039440
+      bluerourist_walkup_0: 1200666212
+      bluerourist_walkup_1: -1190426862
+      bluerourist_walkup_2: 217379188
+      bluerourist_walkup_3: -1422615176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

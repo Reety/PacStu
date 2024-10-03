@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc61ae618f75ef74d9c4fa06df863eef
+guid: 86f2183e63cde574a86e64d8eb458654
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghost_mc_0
+      name: pinktourist_walkup_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cb167cb12739e24887033cc14e668b9
-      internalID: -136964690
+      spriteID: 41ecc20cd60cf594e854b9cffe1b47ef
+      internalID: 147847920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_1
+      name: pinktourist_walkup_1
       rect:
         serializedVersion: 2
         x: 16
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6572ad6a285dea4594b17b1c2931b8a
-      internalID: 1934569256
+      spriteID: 1be4df67e60de2849b5cab273ecd7608
+      internalID: 1179259797
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_2
+      name: pinktourist_walkup_2
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70900332ef0bba643a9fbc6d56413caf
-      internalID: -1415562817
+      spriteID: 9b93c429d28ba194cb386cf90138f33f
+      internalID: 1011228820
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghost_mc_3
+      name: pinktourist_walkup_3
       rect:
         serializedVersion: 2
         x: 16
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc646b5678cf1c9459d4ea53924c4564
-      internalID: -1965039440
+      spriteID: 4c0a8da68dcd9f74ab231bab7b83a910
+      internalID: -2063729543
       vertices: []
       indices: 
       edges: []
@@ -183,7 +183,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 13b29012d76d6cd43a25d41e37c8e3a9
+    spriteID: b1296a74322fa9b4991a6f567a5f5901
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghost_mc_0: -136964690
-      ghost_mc_1: 1934569256
-      ghost_mc_2: -1415562817
-      ghost_mc_3: -1965039440
+      pinktourist_walkup_0: 147847920
+      pinktourist_walkup_1: 1179259797
+      pinktourist_walkup_2: 1011228820
+      pinktourist_walkup_3: -2063729543
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
