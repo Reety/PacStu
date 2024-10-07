@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca7652b27b3d30444b421708678deb70
+guid: 79042515371dc35458dfc100124192a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,61 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: deadtourist_0
+      name: Outside Corner
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 1, y: 4}
+        - {x: 8, y: 4}
+        - {x: 8, y: 8}
+        - {x: -3, y: 8}
+        - {x: -3, y: -8}
+        - {x: 1, y: -8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: d42aee375e5dd754db8f58542ec1eff0
+      internalID: -529164721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T-Junction
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 8, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: 4}
+        - {x: 5, y: 4}
+        - {x: 5, y: -8}
+        - {x: 8, y: -8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3044bdd175591704aa8a5e2fd4c566f5
+      internalID: 668132255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Outside Wal
       rect:
         serializedVersion: 2
         x: 0
@@ -105,77 +159,69 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 1, y: 8}
+        - {x: -3, y: 8}
+        - {x: -3, y: -8}
+        - {x: 1, y: -8}
+      tessellationDetail: 0
       bones: []
-      spriteID: 227957a415c6d8180800000000000000
-      internalID: -9111507374703274206
+      spriteID: 2896ca903b5c5c842b2da33dff53e835
+      internalID: 1123315076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_1
+      name: Inside Wall
       rect:
         serializedVersion: 2
-        x: 16
-        y: 17
+        x: 32
+        y: 16
         width: 16
-        height: 15
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 8, y: 8}
+        - {x: 5, y: 8}
+        - {x: 5, y: -8}
+        - {x: 8, y: -8}
+      tessellationDetail: 0
       bones: []
-      spriteID: 3a73ec15a568e7cc0800000000000000
-      internalID: -3711381320429062237
+      spriteID: da6fe4e8b0ffa91408b3ba082716430e
+      internalID: -1938084000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: deadtourist_2
+      name: Inside Corner
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 0
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 8, y: 8}
+        - {x: 5, y: 8}
+        - {x: 5, y: -6}
+        - {x: 5, y: -6}
+        - {x: 8, y: -6}
+      tessellationDetail: 0
       bones: []
-      spriteID: 13fe81aafb424cec0800000000000000
-      internalID: -3547670200849993935
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: deadtourist_3
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 60f0bb3bde0af40b0800000000000000
-      internalID: -5742194057091019002
+      spriteID: 6d0b7b3f0fb7b854e8c941721bcf41b1
+      internalID: -982986423
       vertices: []
       indices: 
       edges: []
@@ -183,7 +229,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 00817ec4a7a892f41a53d2efde6b617d
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +237,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      deadtourist_0: -9111507374703274206
-      deadtourist_1: -3711381320429062237
-      deadtourist_2: -3547670200849993935
-      deadtourist_3: -5742194057091019002
+      Inside Corner: -982986423
+      Inside Wall: -1938084000
+      Outside Corner: -529164721
+      Outside Wal: 1123315076
+      Outside Wall: -1473053412
+      T-Junction: 668132255
+      WallSprites_5: 757120254
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
