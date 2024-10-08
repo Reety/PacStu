@@ -1,13 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [ExecuteAlways]
-public class LevelOne : MonoBehaviour
+public class InteractablePlacement : MonoBehaviour
 {
-    /*
+/*
      * 0 - empty
      * 1 - outside corner
      * 2 - outside wall
@@ -40,12 +39,10 @@ public class LevelOne : MonoBehaviour
     
     //private static Vector3[,] cord = new Vector3[levelMap.GetLength(0),levelMap.GetLength(1)];
 
-    public RuleTile OutsideWall;
-    public RuleTile InsideWall;
+    public TileBase powerP;
+    public TileBase standardP;
 
-    public TileBase TJunction;
-
-    public Tilemap Walls;
+    public Tilemap interactable;
 
     private Vector3 startPos = new Vector3(-(levelMap.GetLength(1)-1),levelMap.GetLength(0)-1);
     
@@ -53,18 +50,16 @@ public class LevelOne : MonoBehaviour
     void Start()
     {
         Vector3 currPos = startPos;
-        string str = "";
+
         for (int i = 0; i < levelMap.GetLength(0); i++)
         {
             for (int j = 0; j < levelMap.GetLength(1); j++)
             {
-                if (levelMap[i, j] == 1 || levelMap[i, j] == 2)
-                    Walls.SetTile(Vector3Int.FloorToInt(currPos), OutsideWall);
+                if (levelMap[i, j] == 5)
+                    interactable.SetTile(Vector3Int.FloorToInt(currPos), standardP);
                 
-                if (levelMap[i, j] == 3 || levelMap[i, j] == 4)
-                    Walls.SetTile(Vector3Int.FloorToInt(currPos), InsideWall);
-                if (levelMap[i, j] == 7) 
-                    Walls.SetTile(Vector3Int.FloorToInt(currPos), TJunction);
+                if (levelMap[i, j] == 6)
+                    interactable.SetTile(Vector3Int.FloorToInt(currPos), powerP);
                 
                 //str += $"{currPos} ";
                 currPos += Vector3.right;
@@ -79,5 +74,4 @@ public class LevelOne : MonoBehaviour
     {
         
     }
-    
 }

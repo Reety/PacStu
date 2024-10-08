@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 807e9b4375887b545890d40d26261425
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - powerP: {fileID: 11400000, guid: 072f285d2f33362488c8301ee5a1b4d4, type: 2}
+  - standardP: {fileID: 11400000, guid: ad8b8ceb96c924543b3d8c676b7d4e05, type: 2}
+  - interactable: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
