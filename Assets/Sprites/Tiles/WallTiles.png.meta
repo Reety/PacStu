@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79042515371dc35458dfc100124192a0
+guid: 44813f8e8817c3e4cb27ed8c9f35f5b1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -109,22 +109,47 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 1, y: 4}
-        - {x: 8, y: 4}
-        - {x: 8, y: 8}
-        - {x: -3, y: 8}
+      - - {x: 3, y: -3}
+        - {x: 8, y: -3}
+        - {x: 8, y: 3}
+        - {x: -3, y: 3}
         - {x: -3, y: -8}
-        - {x: 1, y: -8}
+        - {x: 3, y: -8}
       tessellationDetail: 0
       bones: []
-      spriteID: d42aee375e5dd754db8f58542ec1eff0
-      internalID: -529164721
+      spriteID: da54d3aa587b75745b05be0200d61823
+      internalID: 2099913301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T-Junction
+      name: Outside Wall
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 8, y: 3}
+        - {x: -8, y: 3}
+        - {x: -8, y: -3}
+        - {x: 8, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 202024b03e62f6b4d8f1f8d76a9a5956
+      internalID: 853680942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TJunction
       rect:
         serializedVersion: 2
         x: 32
@@ -136,41 +161,18 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 8, y: 8}
-        - {x: -8, y: 8}
-        - {x: -8, y: 4}
-        - {x: 5, y: 4}
-        - {x: 5, y: -8}
-        - {x: 8, y: -8}
+      - - {x: -2, y: -8}
+        - {x: 2, y: -8}
+        - {x: 2, y: -3}
+        - {x: 8, y: -3}
+        - {x: 8, y: 3}
+        - {x: -8, y: 3}
+        - {x: -8, y: -3}
+        - {x: -2, y: -3}
       tessellationDetail: 0
       bones: []
-      spriteID: 3044bdd175591704aa8a5e2fd4c566f5
-      internalID: 668132255
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Outside Wal
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: 1, y: 8}
-        - {x: -3, y: 8}
-        - {x: -3, y: -8}
-        - {x: 1, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2896ca903b5c5c842b2da33dff53e835
-      internalID: 1123315076
+      spriteID: 8d8917296c147a142a7167ee0f6bec97
+      internalID: -488899004
       vertices: []
       indices: 
       edges: []
@@ -188,14 +190,14 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 8, y: 8}
-        - {x: 5, y: 8}
-        - {x: 5, y: -8}
-        - {x: 8, y: -8}
+      - - {x: 2, y: 8}
+        - {x: -2, y: 8}
+        - {x: -2, y: -8}
+        - {x: 2, y: -8}
       tessellationDetail: 0
       bones: []
-      spriteID: da6fe4e8b0ffa91408b3ba082716430e
-      internalID: -1938084000
+      spriteID: f19ba265916f89245a65c4827c07294a
+      internalID: -1444279108
       vertices: []
       indices: 
       edges: []
@@ -213,15 +215,17 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 8, y: 8}
-        - {x: 5, y: 8}
-        - {x: 5, y: -6}
-        - {x: 5, y: -6}
-        - {x: 8, y: -6}
+      - - {x: 2, y: -2}
+        - {x: 2, y: 8}
+        - {x: -2, y: 8}
+        - {x: -2, y: 2}
+        - {x: -8, y: 2}
+        - {x: -8, y: -2}
+        - {x: 2, y: -2}
       tessellationDetail: 0
       bones: []
-      spriteID: 6d0b7b3f0fb7b854e8c941721bcf41b1
-      internalID: -982986423
+      spriteID: 12b07ebf0fb9a02409052ae81f48cbf9
+      internalID: 789334628
       vertices: []
       indices: 
       edges: []
@@ -229,7 +233,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 00817ec4a7a892f41a53d2efde6b617d
+    spriteID: 567492cdde4405d4b8c4d8974a64f92b
     internalID: 0
     vertices: []
     indices: 
@@ -237,13 +241,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Inside Corner: -982986423
-      Inside Wall: -1938084000
-      Outside Corner: -529164721
-      Outside Wal: 1123315076
-      Outside Wall: -1473053412
-      T-Junction: 668132255
-      WallSprites_5: 757120254
+      Inside Corner: 789334628
+      Inside Wall: -1444279108
+      Outside Corner: 2099913301
+      Outside Wall: 853680942
+      TJunction: -488899004
+      WallTiles_3: 148534085
+      WallTiles_5: -1892228426
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
