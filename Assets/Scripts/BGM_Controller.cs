@@ -16,8 +16,8 @@ public class BGM : MonoBehaviour
         _bgmPlayer.clip = introMusic;
         _bgmPlayer.Play();
         float introLength = introMusic.length + 0.5f;
-        
-        Invoke(nameof(StartBGM),introLength);
+
+        StartCoroutine(StartBGM(introLength));
 
     }
 
@@ -27,8 +27,9 @@ public class BGM : MonoBehaviour
         
     }
 
-    private void StartBGM()
+    IEnumerator StartBGM(float introLength)
     {
+        yield return new WaitForSecondsRealtime(introLength);
         _bgmPlayer.clip = bgm;
         _bgmPlayer.loop = true;
         _bgmPlayer.Play();
