@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 214482989}
   - component: {fileID: 214482988}
   - component: {fileID: 214482990}
+  - component: {fileID: 214482991}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -180,6 +181,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walls: {fileID: 2027917670}
   interactables: {fileID: 1357653570}
+--- !u!114 &214482991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214482987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea2b3d77e7ba524494466850386f92b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMap: {fileID: 2027917670}
+  wall: {fileID: 0}
+  pelMap: {fileID: 1357653570}
+  ppellet: {fileID: 11400000, guid: 072f285d2f33362488c8301ee5a1b4d4, type: 2}
+  sPellet: {fileID: 11400000, guid: 4202a9b5c89518d4e91afbc719ed61b0, type: 2}
 --- !u!1 &417043422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,7 +1458,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -12, y: 0, z: 0}
   m_Size: {x: 13, y: 14, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -1710,7 +1728,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 15.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1977,7 +1995,7 @@ Transform:
   m_GameObject: {fileID: 1918017885}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.15, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1994,6 +2012,7 @@ GameObject:
   - component: {fileID: 2027917668}
   - component: {fileID: 2027917670}
   - component: {fileID: 2027917669}
+  - component: {fileID: 2027917671}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -3272,7 +3291,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -22, y: -8, z: 0}
   m_Size: {x: 23, y: 23, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -3291,6 +3310,23 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2027917671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027917667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf648dd0d140164691ea5503ded7f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutsideWall: {fileID: 11400000, guid: d0429d980b62e43479d04fef036e6dd0, type: 2}
+  OutsideCorner: {fileID: 11400000, guid: 32f32ef35df460740a4457d15624ac74, type: 2}
+  InsideWall: {fileID: 11400000, guid: d61da943d9f586f43a4660423032176e, type: 2}
+  InsideCorner: {fileID: 11400000, guid: 55d5cc02694d96442b76cfcb6fabb9f2, type: 2}
+  TJunction: {fileID: 11400000, guid: a91040601fcf330458a437c2f706fdd4, type: 2}
 --- !u!1 &2042991640
 GameObject:
   m_ObjectHideFlags: 0
