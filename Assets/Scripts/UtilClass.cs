@@ -5,6 +5,11 @@ using UnityEngine;
 
 public static class UtilClass
 {
+    public static Matrix4x4
+        Rotate0 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 0)), 
+        Rotate90 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 90f)), 
+        Rotate180 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 90f)), 
+        Rotate270 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 90f));
     public static int[] GetRow(this int[,] srcArray, int row)
     {
         int size = 4;
