@@ -65,9 +65,11 @@ public class LevelGeneration : MonoBehaviour
             fullMap[i] = new int[levelMap.GetLength(1) * 2];
         }
         
-        addTopLeft();
-        addTopRight();
-        addBottomHalf();
+        AddTopLeft();
+        AddTopRight();
+        AddBottomHalf();
+        
+        PlaceTiles();
 
         /*string str = "";
         
@@ -95,7 +97,7 @@ public class LevelGeneration : MonoBehaviour
         
     }
 
-    private void addTopLeft()
+    private void AddTopLeft()
     {
         for (int i = 0; i <= levelMap.GetUpperBound(0); i++)
         {
@@ -103,7 +105,7 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
-    private void addTopRight()
+    private void AddTopRight()
     {
         for (int i = 0; i <= levelMap.GetUpperBound(0); i++)
         {
@@ -111,7 +113,7 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
-    private void addBottomHalf()
+    private void AddBottomHalf()
     {
         int[][] quadrant = fullMap.Where(
             (row, index) => index < levelMap.GetUpperBound(0)).Select(
@@ -119,12 +121,13 @@ public class LevelGeneration : MonoBehaviour
 
         quadrant.CopyTo(fullMap, levelMap.GetLength(0));
     }
-
-    private void placeTiles()
+    private void PlaceTiles()
     {
         int row = 0;
         int col = 0;
-        
+
+
+        startPos = new Vector3(50, 50);
         Vector3 currPos = startPos;
         
         for (row = 0; row < fullMap.Length; row++)
@@ -132,51 +135,119 @@ public class LevelGeneration : MonoBehaviour
             for (col = 0; col < fullMap[row].Length; col++)
             {
                 var tileCode = fullMap[row][col];
-                if (tileCode is OCorner or ICorner)
+                if (row == 0 && col == 0) wallMap.SetTile(Vector3Int.FloorToInt(currPos),wall.OutsideCorner);
+                else switch (tileCode)
                 {
-                    
+                    case OCorner or ICorner:
+                        PlaceCorner(tileCode,row,col,currPos);
+                        break;
+                    case OWall or IWall:
+                        PlaceWall(tileCode,row,col,currPos);
+                        break;
+                    case TJunc:
+                        break;
                 }
-                /*outside corner pieces
-                 * D-R -> 0
-                 * D-L -> 90
-                 * U-R -> 270
-                 * U-L -> 180
-                 * */
+
                 currPos += Vector3.right;
             }
             currPos = new Vector3(startPos.x, currPos.y - 1);
         }
     }
 
-    private void placeCorner(int tileCode, int row, int col, Vector3 position)
+    /*corner pieces rotation
+     * D-R -> 0
+     * D-L -> 270
+     * U-R -> 90
+     * U-L -> 180
+     * */
+    private void PlaceCorner(int tileCode, int row, int col, Vector3 position)
     {
         Vector3Int pos = Vector3Int.FloorToInt(position);
         Matrix4x4 rotation;
-        
-        if (row == 0 && col == 0) 
-            wallMap.SetTile(pos,wall.OutsideCorner);
-        else
+
+        wallMap.SetTile(pos, tileCode is OCorner ? wall.OutsideCorner : wall.InsideCorner);
+
+        if (IsAboveTileAWall(row,col) && !IsBelowTileAWall(row,col))
+            rotation = (IsLeftTileAWall(row, col)) ? UtilClass.Rotate180 : UtilClass.Rotate90;
+        else if (IsAboveTileAWall(row, col) && IsBelowTileAWall(row, col))
         {
-            switch (tileCode)
-            {
-                case ICorner:
-                    if (fullMap[row - 1][col] is ICorner or IWall or TJunc)
-                        rotation = fullMap[row][col + 1] is ICorner or IWall ? UtilClass.Rotate270 : UtilClass.Rotate180;
-                    else 
-                        rotation = fullMap[row][col + 1] is ICorner or IWall ? UtilClass.Rotate0 : UtilClass.Rotate180;
-                    
-                    break;
-                
-                case OCorner:
-                    break;
-            }
+            if (!IsTopRightAWall(row, col))
+                rotation = UtilClass.Rotate90;
+            else if (!IsTopLeftAWall(row, col))
+                rotation = UtilClass.Rotate180;
+            else if (!IsBottomLeftAWall(row, col))
+                rotation = UtilClass.Rotate270;
+            else rotation = UtilClass.Rotate0;
         }
+        else 
+            rotation = (IsLeftTileAWall(row, col)) ? UtilClass.Rotate270 : UtilClass.Rotate0;
+        
+        wallMap.SetTransformMatrix(pos, rotation);
+        print($"{pos} at array {row}{col} has transform {wallMap.GetTransformMatrix(pos).rotation.eulerAngles}");
     }
 
-    private Matrix4x4 findCornerRotation(int row, int col)
+    private void PlaceWall(int tileCode, int row, int col, Vector3 position)
     {
+        Vector3Int pos = Vector3Int.FloorToInt(position);
+        Matrix4x4 rotation = UtilClass.Rotate90;
         
-        return UtilClass.Rotate0;
+        wallMap.SetTile(pos, tileCode is OWall ? wall.OutsideWall : wall.InsideWall);
+
+        if (IsAboveTileAWall(row,col)) 
+            wallMap.SetTransformMatrix(pos, rotation);
+    }
+
+    private static bool IsAboveTileAWall(int row, int col)
+    {
+        if (row - 1 < 0) return false; //checks it's not on the top row to avoid out of bounds exception
+        else if (fullMap[row - 1][col] is ICorner or IWall or OCorner or OWall or TJunc) return true;
+
+        return false;
+    }
+
+    private static bool IsTopRightAWall(int row, int col)
+    {
+        if (row - 1 < 0 || col + 1 > fullMap[row].Length-1) return false;
+        else if (fullMap[row - 1][col + 1] is ICorner or IWall or OCorner or OWall) return true;
+        return false;
+    }
+    
+    private static bool IsTopLeftAWall(int row, int col)
+    {
+        if (row - 1 < 0 || col - 1 < 0) return false;
+        else if (fullMap[row - 1][col - 1] is ICorner or IWall or OCorner or OWall) return true;
+        return false;
+    }
+    
+    private static bool IsBottomLeftAWall(int row, int col)
+    {
+        if (row + 1 > fullMap.Length-1 || col - 1 < 0) return false;
+        else if (fullMap[row + 1][col - 1] is ICorner or IWall or OCorner or OWall) return true;
+        return false;
+    }
+    
+    private static bool IsBottomRightAWall(int row, int col)
+    {
+        if (row + 1 > fullMap.Length-1 || col + 1 > fullMap[row].Length-1) return false;
+        else if (fullMap[row + 1][col + 1] is ICorner or IWall or OCorner or OWall) return true;
+        return false;
+    }
+
+
+    private static bool IsBelowTileAWall(int row, int col)
+    {
+        if (row + 1 >= fullMap.Length-1) return false; //checks it's not on the bottom row to avoid out of bounds exception
+        else if (fullMap[row + 1][col] is ICorner or IWall or OCorner or OWall or TJunc) return true;
+
+        return false;
+    }
+
+    private static bool IsLeftTileAWall(int row, int col)
+    {
+        if (col - 1 < 0) return false;
+        else if (fullMap[row][col - 1] is ICorner or IWall or OCorner or OWall or TJunc) return true;
+
+        return false;
     }
     
     
