@@ -13,8 +13,10 @@ public class LevelGeneration : MonoBehaviour
     public WallTiles wall;
     public Tilemap pelMap;
 
-    public TileBase ppellet;
+    public GameObject pPellet;
     public TileBase sPellet;
+
+    public Camera ortho;
     
     /*
      * 0 - empty
@@ -51,12 +53,25 @@ public class LevelGeneration : MonoBehaviour
     private Vector3 startPos = new Vector3(-(levelMap.GetLength(1)-1),levelMap.GetLength(0)-1);
 
     private static int[][] fullMap = new int[levelMap.GetLength(0) * 2 - 1][];
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        /*wallMap.ClearAllTiles();
-        pelMap.ClearAllTiles();*/
+
+        ortho.orthographicSize = levelMap.GetLength(0);
+
+        foreach (Transform child in wallMap.transform) 
+            Destroy(child.gameObject);
+        
+        foreach (Transform child in pelMap.transform)
+            Destroy(child.gameObject);
+        
+        wallMap.ClearAllTiles();
+        pelMap.ClearAllTiles();
+
+        ManualLevelOne manualMap = GetComponent<ManualLevelOne>();
+        Destroy(manualMap);
         
         wall = wallMap.GetComponent<WallTiles>();
 
@@ -126,8 +141,7 @@ public class LevelGeneration : MonoBehaviour
         int row = 0;
         int col = 0;
 
-
-        startPos = new Vector3(50, 50);
+        
         Vector3 currPos = startPos;
         
         for (row = 0; row < fullMap.Length; row++)
@@ -145,6 +159,13 @@ public class LevelGeneration : MonoBehaviour
                         PlaceWall(tileCode,row,col,currPos);
                         break;
                     case TJunc:
+                        PlaceTJunction(row,col,currPos);
+                        break;
+                    case PPel:
+                        Instantiate(pPellet,currPos,Quaternion.identity);
+                        break;
+                    case Spel:
+                        pelMap.SetTile(Vector3Int.FloorToInt(currPos),sPellet);
                         break;
                 }
 
@@ -152,6 +173,19 @@ public class LevelGeneration : MonoBehaviour
             }
             currPos = new Vector3(startPos.x, currPos.y - 1);
         }
+    }
+
+    private void PlaceTJunction(int row, int col, Vector3 position)
+    {
+        Vector3Int pos = Vector3Int.FloorToInt(position);
+        wallMap.SetTile(pos, wall.TJunction);
+        
+        if(!IsBelowTileAWall(row,col))
+            wallMap.SetTransformMatrix(pos, UtilClass.Rotate180);
+        else if(!IsLeftTileAWall(row,col))
+            wallMap.SetTransformMatrix(pos, UtilClass.Rotate90);
+        else if(IsAboveTileAWall(row,col))
+            wallMap.SetTransformMatrix(pos,UtilClass.Rotate270);
     }
 
     /*corner pieces rotation
@@ -183,7 +217,7 @@ public class LevelGeneration : MonoBehaviour
             rotation = (IsLeftTileAWall(row, col)) ? UtilClass.Rotate270 : UtilClass.Rotate0;
         
         wallMap.SetTransformMatrix(pos, rotation);
-        print($"{pos} at array {row}{col} has transform {wallMap.GetTransformMatrix(pos).rotation.eulerAngles}");
+        //print($"{pos} at array {row}{col} has transform {wallMap.GetTransformMatrix(pos).rotation.eulerAngles}");
     }
 
     private void PlaceWall(int tileCode, int row, int col, Vector3 position)
@@ -193,7 +227,7 @@ public class LevelGeneration : MonoBehaviour
         
         wallMap.SetTile(pos, tileCode is OWall ? wall.OutsideWall : wall.InsideWall);
 
-        if (IsAboveTileAWall(row,col)) 
+        if (IsAboveTileAWall(row,col) && IsBelowTileAWall(row,col)) 
             wallMap.SetTransformMatrix(pos, rotation);
     }
 
@@ -236,7 +270,7 @@ public class LevelGeneration : MonoBehaviour
 
     private static bool IsBelowTileAWall(int row, int col)
     {
-        if (row + 1 >= fullMap.Length-1) return false; //checks it's not on the bottom row to avoid out of bounds exception
+        if (row + 1 > fullMap.Length-1) return false; //checks it's not on the bottom row to avoid out of bounds exception
         else if (fullMap[row + 1][col] is ICorner or IWall or OCorner or OWall or TJunc) return true;
 
         return false;

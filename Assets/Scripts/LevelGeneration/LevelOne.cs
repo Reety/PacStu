@@ -53,7 +53,7 @@ public class LevelOne : MonoBehaviour
     void Start()
     {
         Vector3 currPos = startPos;
-        string str = "";
+        //string str = "";
         for (int i = 0; i < levelMap.GetLength(0); i++)
         {
             for (int j = 0; j < levelMap.GetLength(1); j++)
