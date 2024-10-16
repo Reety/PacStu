@@ -7,7 +7,8 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     private GameManager currentGame;
-    public TMP_Text highscore;
+    public TMP_Text highscore_score;
+    public TMP_Text highscore_time;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,9 @@ public class UIManager : MonoBehaviour
 
     public void ChangeHighscore(int score, string time)
     {
-        highscore.text = $"{score}       {time}";
+        highscore_score.text = $"{score}";
+        highscore_time.text = time;
+
     }
 
     public void Initialise(GameManager game)
