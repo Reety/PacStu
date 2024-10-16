@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
     {
         if (!changingScene)
         {
-            print("starting coroutine");
             StartCoroutine(ButtonPressed(scene));
         }
         
