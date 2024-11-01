@@ -15,6 +15,7 @@ public class Border : MonoBehaviour
     
     void Start()
     {
+        titleBorder.startWidth = 0.1f;
         titleBorder.useWorldSpace = true;
         Vector3[] titleCorners = new Vector3[4];
         heading.GetWorldCorners(titleCorners);
