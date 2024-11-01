@@ -17,6 +17,17 @@ public class Border : MonoBehaviour
     {
         titleBorder.startWidth = 0.1f;
         titleBorder.useWorldSpace = true;
+        borderSize();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        borderSize();
+    }
+
+    private void borderSize()
+    {
         Vector3[] titleCorners = new Vector3[4];
         heading.GetWorldCorners(titleCorners);
         titleBorder.positionCount = 4;//600;
@@ -29,18 +40,12 @@ public class Border : MonoBehaviour
             sign.x = (corner.x < heading.position.x) ? -sign.x : sign.x;
             sign.y = (corner.y < heading.position.y) ? -sign.y : sign.y;
 
-            print($"({corner} is compared to {heading.position} so sign is {sign}");
+            //print($"({corner} is compared to {heading.position} so sign is {sign}");
             Vector3 newCorner = new Vector3(corner.x + sign.x, corner.y + sign.y);
             titleBorder.SetPosition(i,newCorner);
-            Debug.Log(newCorner);
+            //Debug.Log(newCorner);
             sign = Vector3.one;
             i++;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
