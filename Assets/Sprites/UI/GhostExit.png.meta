@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af13cf6f6ed9bb1438a9160fad8682dc
+guid: 0dfefb2070c666a40b5373b18953b8f1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: deadtourist_0
+      name: ExitUISprite
       rect:
         serializedVersion: 2
         x: 0
@@ -139,7 +139,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: extralife
+      name: deadtourist_2
       rect:
         serializedVersion: 2
         x: 0
@@ -183,7 +183,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c85d14b4336e8e44f81e6a89fa0336b5
+    spriteID: beb8b659c13d89045a01a3b86638ba08
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      deadtourist_0: -9111507374703274206
+      ExitUISprite: -9111507374703274206
       deadtourist_1: -3711381320429062237
+      deadtourist_2: -3547670200849993935
       deadtourist_3: -5742194057091019002
-      extralife: -3547670200849993935
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
