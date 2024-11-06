@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LevelButtons
   - HighScore
+  - HUD
   layers:
   - Default
   - TransparentFX

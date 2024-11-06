@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UIScripts;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using Button = UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,10 +16,11 @@ public class UIManager : MonoBehaviour
     public TMP_Text highscore_score;
     public TMP_Text highscore_time;
 
-    public Button Level1Button;
+    [SerializeField] private LevelButton levelButtons;
+    
     private bool changingScene = false;
-
-    public Animator ButtonAnimator;
+    private MainSceneHUD hudController;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,32 +43,39 @@ public class UIManager : MonoBehaviour
     public void Initialise(GameManager game)
     {
         currentGame = game;
-        ButtonAnimator = Level1Button.GetComponent<Animator>();
     }
 
     public void OnClick(string scene)
     {
-        if (!changingScene)
-        {
-            StartCoroutine(ButtonPressed(scene));
-        }
+        if (changingScene) return;
+        changingScene = true;
         
+        levelButtons.ButtonAnimOver += LoadScene;
+        StartCoroutine(levelButtons.ButtonAnimate(scene));
+
     }
 
-    IEnumerator ButtonPressed(string scene)
+    public void OnQuitButton()
     {
+        if (changingScene) return;
         changingScene = true;
-        AnimatorStateInfo currState = ButtonAnimator.GetCurrentAnimatorStateInfo(0);
-        //AnimatorClipInfo currClip = ButtonAnimator.GetCurrentAnimatorClipInfo(0)[0];
-        //print($"currstate is {currClip.clip}");
-        yield return new WaitForSeconds(currState.length);
-        AnimatorStateInfo newState = ButtonAnimator.GetCurrentAnimatorStateInfo(0);
-        //AnimatorClipInfo newClip = ButtonAnimator.GetCurrentAnimatorClipInfo(0)[0];
-        //print($"nextstate is {newClip.clip}");
-        //float duration = (float)newState.length - (float)(newState.length * (Math.Truncate(newState.normalizedTime) - newState.normalizedTime));
         
-        yield return new WaitForSeconds(newState.length);
-        changingScene = false;
-        currentGame.LoadScene(scene);
+        currentGame.LoadScene("StartScene");
     }
+    
+
+    private void LoadScene(string sceneName)
+    {
+        levelButtons.ButtonAnimOver -= LoadScene;
+        currentGame.LoadScene(sceneName);
+        changingScene = false;
+    }
+
+    public void LoadMainGameUI()
+    {
+        hudController = GameObject.FindGameObjectWithTag("HUD").GetComponent<MainSceneHUD>();
+        hudController.Initialize();
+        hudController.QuitButton.onClick.AddListener(OnQuitButton);
+    }
+
 }

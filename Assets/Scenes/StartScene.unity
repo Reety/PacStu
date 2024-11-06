@@ -438,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highscore_score: {fileID: 752905252}
   highscore_time: {fileID: 519337787}
-  Level1Button: {fileID: 1020985309}
+  levelButtons: {fileID: 1060808514}
   ButtonAnimator: {fileID: 0}
 --- !u!1 &127217590
 GameObject:
@@ -1826,6 +1826,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1060808513}
+  - component: {fileID: 1060808514}
   m_Layer: 5
   m_Name: Level Buttons
   m_TagString: LevelButtons
@@ -1854,6 +1855,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -65}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1060808514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060808512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6aaf3e8fb852a479fe5d04dfd552af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonAnim: {fileID: 1020985312}
 --- !u!1 &1131122711
 GameObject:
   m_ObjectHideFlags: 0

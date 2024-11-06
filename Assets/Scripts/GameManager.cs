@@ -8,12 +8,17 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private SaveGameManager saveManager;
     [SerializeField] private UIManager uiManager;
+    
+    
     // Start is called before the first frame update
     private void Awake()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         saveManager.Initialise(this);
         uiManager.Initialise(this);
         uiManager.ChangeHighscore(saveManager.CurrentHighScore,saveManager.CurrentHighScoreTime);
+        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -30,5 +35,13 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainScene")
+        {
+            uiManager.LoadMainGameUI();
+        }
     }
 }
