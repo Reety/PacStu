@@ -265,7 +265,6 @@ GameObject:
   m_Component:
   - component: {fileID: 214482989}
   - component: {fileID: 214482988}
-  - component: {fileID: 214482990}
   - component: {fileID: 214482991}
   m_Layer: 0
   m_Name: Grid
@@ -303,20 +302,6 @@ Transform:
   - {fileID: 1357653568}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &214482990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214482987}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d99e4cbb998a46e4e94f25a8b8d09c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walls: {fileID: 2027917670}
-  interactables: {fileID: 1357653570}
 --- !u!114 &214482991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +469,7 @@ GameObject:
   - component: {fileID: 349733402}
   - component: {fileID: 349733401}
   m_Layer: 0
-  m_Name: TBCanvas
+  m_Name: Ghost1Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1376,7 +1361,7 @@ GameObject:
   - component: {fileID: 649200203}
   - component: {fileID: 649200202}
   m_Layer: 0
-  m_Name: TYCanvas
+  m_Name: Ghost4Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3682,7 +3667,7 @@ GameObject:
   - component: {fileID: 1620094365}
   - component: {fileID: 1620094364}
   m_Layer: 0
-  m_Name: TRCanvas
+  m_Name: Ghost3Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5321,7 +5306,7 @@ GameObject:
   - component: {fileID: 2103531378}
   - component: {fileID: 2103531377}
   m_Layer: 0
-  m_Name: TPCanvas
+  m_Name: Ghost2Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
