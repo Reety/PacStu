@@ -7,9 +7,6 @@ using Debug = System.Diagnostics.Debug;
 
 public class PacStudentController : MonoBehaviour
 {
-    [SerializeField] public Transform PacStudent;
-    
-
     [SerializeField] private float speed = 1.5f;
     [SerializeField] private LevelMap levelmap;
     
@@ -17,13 +14,13 @@ public class PacStudentController : MonoBehaviour
     private Animator anim;
     private AudioSource audio;
     [SerializeField] private AudioClip moveAudio;
+    [SerializeField] private AudioClip pelAudio;
     
     private string lastTrigger = "";
 
     private KeyCode lastinput = KeyCode.None;
     private KeyCode currentinput = KeyCode.None;
     
-
 
     private Vector3 CurrentPosition => transform.position;
     /*
@@ -33,6 +30,9 @@ public class PacStudentController : MonoBehaviour
     private Vector3 CurrentInputNextCell => levelmap.GetCentre(CurrentPosition + GetMovementDirection(currentinput));
     
     private float Duration => (CurrentPosition - CurrentInputNextCell).magnitude/speed;
+    
+    private float MoveAudioPitch => moveAudio.length / anim.GetCurrentAnimatorStateInfo(0).length;
+    private float PelAudioPitch => (pelAudio.length/2) / Duration;
 
 
     // Start is called before the first frame update
@@ -42,6 +42,7 @@ public class PacStudentController : MonoBehaviour
         tweener = GetComponent<Tweener>();
         anim = GetComponent<Animator>();
         audio = GetComponent<AudioSource>();
+        transform.position = levelmap.GetCentre(transform.position);
     }
 
     // Update is called once per frame
@@ -88,9 +89,13 @@ public class PacStudentController : MonoBehaviour
 
     private void PlayAudio()
     {
-        if (audio.isPlaying) return;
-        audio.clip = moveAudio;
+        AudioClip toPlay = levelmap.IsPell(CurrentInputNextCell) ? pelAudio : moveAudio;
+        if (audio.clip == toPlay && audio.isPlaying) return;
+        
+        audio.clip = toPlay;
         audio.loop = true;
+        audio.pitch = (toPlay == moveAudio) ? MoveAudioPitch : PelAudioPitch;
+        
         audio.Play();
     }
 
@@ -118,4 +123,6 @@ public class PacStudentController : MonoBehaviour
         
         return direction;
     }
+    
+
 }

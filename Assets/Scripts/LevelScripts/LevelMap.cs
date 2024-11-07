@@ -49,7 +49,8 @@ namespace LevelScripts
         public Vector3 GetCentre(Vector3 point) => interactables.GetCellCenterWorld(Vector3Int.FloorToInt(point));
     
         public bool IsWall(Vector3 point) => walls.HasTile(Vector3Int.FloorToInt(point));
-        
-    
+
+        public bool IsPell(Vector3 point) => interactables.HasTile((Vector3Int.FloorToInt(point)));
+
     }
 }

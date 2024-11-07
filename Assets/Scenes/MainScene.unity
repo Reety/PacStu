@@ -1160,10 +1160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db64e0a7a1d1013469758d901f46a64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PacStudent: {fileID: 614489669}
   speed: 5
   levelmap: {fileID: 214482992}
   moveAudio: {fileID: 8300000, guid: 8ad943c3dedd61a448a2586398b704a2, type: 3}
+  pelAudio: {fileID: 8300000, guid: aa683760c421b7f4695ba094c33eb2f0, type: 3}
 --- !u!1 &620023567
 GameObject:
   m_ObjectHideFlags: 0
