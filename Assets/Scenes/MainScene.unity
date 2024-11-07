@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 214482989}
   - component: {fileID: 214482988}
   - component: {fileID: 214482991}
+  - component: {fileID: 214482992}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -320,6 +321,18 @@ MonoBehaviour:
   pPellet: {fileID: 4806842268054166483, guid: 48059657c57b2a547a82979d107ce4be, type: 3}
   sPellet: {fileID: 11400000, guid: 4202a9b5c89518d4e91afbc719ed61b0, type: 2}
   ortho: {fileID: 1416043612}
+--- !u!114 &214482992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214482987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bf22ade9d9fde4fb1f5abb48f7a1b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &299508053
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,8 +939,8 @@ GameObject:
   - component: {fileID: 614489668}
   - component: {fileID: 614489670}
   - component: {fileID: 614489672}
-  - component: {fileID: 614489671}
   - component: {fileID: 614489673}
+  - component: {fileID: 614489674}
   m_Layer: 0
   m_Name: PlayableCharacter
   m_TagString: Untagged
@@ -1026,21 +1039,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &614489671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 614489667}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ce01648f03e574e8e44c5f5fa27b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactables: {fileID: 1357653570}
-  bgmSource: {fileID: 1391657397}
-  moveSound: {fileID: 8300000, guid: 8ad943c3dedd61a448a2586398b704a2, type: 3}
 --- !u!114 &614489672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,6 +1148,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &614489674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614489667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db64e0a7a1d1013469758d901f46a64f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PacStudent: {fileID: 614489669}
+  speed: 5
+  levelmap: {fileID: 214482992}
+  moveAudio: {fileID: 8300000, guid: 8ad943c3dedd61a448a2586398b704a2, type: 3}
 --- !u!1 &620023567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,7 +2756,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -12, y: 0, z: 0}
   m_Size: {x: 13, y: 14, z: 1}
-  m_TileAnchor: {x: 0, y: 0, z: 0}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -5182,7 +5196,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -22, y: -8, z: 0}
   m_Size: {x: 23, y: 23, z: 1}
-  m_TileAnchor: {x: 0, y: 0, z: 0}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1

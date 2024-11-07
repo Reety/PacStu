@@ -3,59 +3,98 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using LevelScripts;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 public class PacStudentController : MonoBehaviour
 {
     [SerializeField] public Transform PacStudent;
-    private Tweener tweener;
     
-    private KeyCode lastinput;
-    private KeyCode currentinput;
-    
-    private LevelMap levelmap;
 
-    private Vector3 LastInputNextCell => levelmap.GetCentre(transform.position + GetMovementDirection(currentinput));
-    private Vector3 CurrentInputNextCell => levelmap.GetCentre(transform.position + GetMovementDirection(currentinput));
+    [SerializeField] private float speed = 1.5f;
+    [SerializeField] private LevelMap levelmap;
+    
+    private Tweener tweener;
+    private Animator anim;
+    private AudioSource audio;
+    [SerializeField] private AudioClip moveAudio;
+    
+    private string lastTrigger = "";
+
+    private KeyCode lastinput = KeyCode.None;
+    private KeyCode currentinput = KeyCode.None;
+    
+
+
+    private Vector3 CurrentPosition => transform.position;
+    /*
+     * checks what cell the last input and current input entered by user goes to 
+     */
+    private Vector3 LastInputNextCell => levelmap.GetCentre(CurrentPosition + GetMovementDirection(lastinput));
+    private Vector3 CurrentInputNextCell => levelmap.GetCentre(CurrentPosition + GetMovementDirection(currentinput));
+    
+    private float Duration => (CurrentPosition - CurrentInputNextCell).magnitude/speed;
+
 
     // Start is called before the first frame update
+
     void Start()
     {
-        
-    }
-
-    void Awake()
-    {
         tweener = GetComponent<Tweener>();
+        anim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.anyKeyDown) lastinput = GetInput();
+        Move();
         
-        
-
+        if (!tweener.IsTweening && lastTrigger != "Idle")
+        {
+            anim.SetTrigger("Idle");
+            audio.Stop();
+            lastTrigger = "Idle";
+        }
     }
 
     private void Move()
     {
-        if (tweener.IsTweening) return;
+        if (tweener.IsTweening) return; 
+        // if the last input can be navigated to then makes that the current input
+        currentinput = (!levelmap.IsWall(LastInputNextCell) && lastinput != KeyCode.None) ? lastinput : currentinput; 
         
-        currentinput = !levelmap.IsWall(LastInputNextCell) ? lastinput : currentinput;
+        if (levelmap.IsWall(CurrentInputNextCell) || currentinput == KeyCode.None) return; //if currentinput also can't be moved to then return 
         
-        if (levelmap.IsWall(CurrentInputNextCell)) return;
-        
-        
+        //makes sure to only trigger the animation if direction changes to avoid weird things with trigger parametres
+        if (lastTrigger != UtilClass.KeyToAnimation[currentinput])
+        {
+            anim.SetTrigger(UtilClass.KeyToAnimation[currentinput]);    
+            lastTrigger = UtilClass.KeyToAnimation[currentinput];
+        }
+
+        //print($"moving {UtilClass.KeyToAnimation[currentinput]}");
+        tweener.AddTween(transform, CurrentPosition, CurrentInputNextCell, Duration);
+        PlayAudio();
     }
 
     private KeyCode GetInput()
     {
-        if(Input.GetKey(KeyCode.W)) { return KeyCode.W; }
-        if (Input.GetKey(KeyCode.S)) { return KeyCode.S; }
-        if (Input.GetKey(KeyCode.A)) { return KeyCode.A; }
-        return Input.GetKey(KeyCode.D) ? KeyCode.D : lastinput;
+        if(Input.GetKeyDown(KeyCode.W)) { return KeyCode.W; }
+        if (Input.GetKeyDown(KeyCode.S)) { return KeyCode.S; }
+        if (Input.GetKeyDown(KeyCode.A)) { return KeyCode.A; }
+        return Input.GetKeyDown(KeyCode.D) ? KeyCode.D : lastinput;
     }
 
+    private void PlayAudio()
+    {
+        if (audio.isPlaying) return;
+        audio.clip = moveAudio;
+        audio.loop = true;
+        audio.Play();
+    }
+
+    //maps keycode to direction
     private Vector3 GetMovementDirection(KeyCode input)
     {
         Vector3 direction = Vector3.zero;

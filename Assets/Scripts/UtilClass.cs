@@ -5,6 +5,15 @@ using UnityEngine;
 
 public static class UtilClass
 {
+    public static Dictionary<KeyCode, string> KeyToAnimation = new Dictionary<KeyCode, string>()
+    {
+        [KeyCode.W] = "Up",
+        [KeyCode.A] = "Left",
+        [KeyCode.S] = "Down",
+        [KeyCode.D] = "Right",
+        [KeyCode.None] = "Down"
+    };
+        
     public static Matrix4x4
         Rotate0 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 0)), 
         Rotate90 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 90f)), 

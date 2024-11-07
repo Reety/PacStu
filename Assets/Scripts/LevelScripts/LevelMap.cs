@@ -46,7 +46,7 @@ namespace LevelScripts
             grid = this.walls.layoutGrid;
         }
 
-        public Vector3 GetCentre(Vector3 point) => grid.GetCellCenterWorld(Vector3Int.FloorToInt(point));
+        public Vector3 GetCentre(Vector3 point) => interactables.GetCellCenterWorld(Vector3Int.FloorToInt(point));
     
         public bool IsWall(Vector3 point) => walls.HasTile(Vector3Int.FloorToInt(point));
         

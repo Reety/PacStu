@@ -57,7 +57,7 @@ namespace LevelScripts
     
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
 
             ortho.orthographicSize = levelMap.GetLength(0);
@@ -149,7 +149,7 @@ namespace LevelScripts
                             PlaceTJunction(row,col,currPos);
                             break;
                         case PPel:
-                            Instantiate(pPellet,currPos,Quaternion.identity);
+                            Instantiate(pPellet,pelMap.GetCellCenterWorld(Vector3Int.FloorToInt(currPos)),Quaternion.identity);
                             break;
                         case Spel:
                             pelMap.SetTile(Vector3Int.FloorToInt(currPos),sPellet);
