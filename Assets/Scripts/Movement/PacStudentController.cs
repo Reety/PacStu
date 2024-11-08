@@ -12,7 +12,7 @@ public class PacStudentController : MonoBehaviour
     
     private Tweener tweener;
     private Animator anim;
-    private AudioSource audio;
+    private AudioSource audioSrc;
     [SerializeField] private AudioClip moveAudio;
     [SerializeField] private AudioClip pelAudio;
     
@@ -21,7 +21,7 @@ public class PacStudentController : MonoBehaviour
     private KeyCode lastinput = KeyCode.None;
     private KeyCode currentinput = KeyCode.None;
     
-
+    public int CurrentState => anim.GetCurrentAnimatorStateInfo(0).tagHash;
     private Vector3 CurrentPosition => transform.position;
     /*
      * checks what cell the last input and current input entered by user goes to 
@@ -41,7 +41,7 @@ public class PacStudentController : MonoBehaviour
     {
         tweener = GetComponent<Tweener>();
         anim = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
+        audioSrc = GetComponent<AudioSource>();
         transform.position = levelmap.GetCentre(transform.position);
     }
 
@@ -54,7 +54,7 @@ public class PacStudentController : MonoBehaviour
         if (!tweener.IsTweening && lastTrigger != "Idle")
         {
             anim.SetTrigger("Idle");
-            audio.Stop();
+            audioSrc.Stop();
             lastTrigger = "Idle";
         }
     }
@@ -90,13 +90,13 @@ public class PacStudentController : MonoBehaviour
     private void PlayAudio()
     {
         AudioClip toPlay = levelmap.IsPell(CurrentInputNextCell) ? pelAudio : moveAudio;
-        if (audio.clip == toPlay && audio.isPlaying) return;
+        if (audioSrc.clip == toPlay && audioSrc.isPlaying) return;
         
-        audio.clip = toPlay;
-        audio.loop = true;
-        audio.pitch = (toPlay == moveAudio) ? MoveAudioPitch : PelAudioPitch;
+        audioSrc.clip = toPlay;
+        audioSrc.loop = true;
+        audioSrc.pitch = (toPlay == moveAudio) ? MoveAudioPitch : PelAudioPitch;
         
-        audio.Play();
+        audioSrc.Play();
     }
 
     //maps keycode to direction
