@@ -15,12 +15,13 @@ public class PacStudentController : MonoBehaviour
     private AudioSource audioSrc;
     [SerializeField] private AudioClip moveAudio;
     [SerializeField] private AudioClip pelAudio;
-    
-    private string lastTrigger = "";
+
+    private int lastTrigger = 0;
 
     private KeyCode lastinput = KeyCode.None;
     private KeyCode currentinput = KeyCode.None;
-    
+    private static readonly int Idle = Animator.StringToHash("Idle");
+
     public int CurrentState => anim.GetCurrentAnimatorStateInfo(0).tagHash;
     private Vector3 CurrentPosition => transform.position;
     /*
@@ -51,11 +52,11 @@ public class PacStudentController : MonoBehaviour
         if (Input.anyKeyDown) lastinput = GetInput();
         Move();
         
-        if (!tweener.IsTweening && lastTrigger != "Idle")
+        if (!tweener.IsTweening && lastTrigger != Idle)
         {
-            anim.SetTrigger("Idle");
+            anim.SetTrigger(Idle);
             audioSrc.Stop();
-            lastTrigger = "Idle";
+            lastTrigger = Idle;
         }
     }
 
@@ -102,25 +103,15 @@ public class PacStudentController : MonoBehaviour
     //maps keycode to direction
     private Vector3 GetMovementDirection(KeyCode input)
     {
-        Vector3 direction = Vector3.zero;
-        
-        switch (input)
+        var direction = input switch
         {
-            case KeyCode.W:
-                direction = Vector3.up;
-                break;
-            case KeyCode.S:
-                direction = Vector3.down;
-                break;
-            case KeyCode.A:
-                direction = Vector3.left;
-                break;
-            case KeyCode.D:
-                direction = Vector3.right;
-                break;
-                
-        }
-        
+            KeyCode.W => Vector3.up,
+            KeyCode.S => Vector3.down,
+            KeyCode.A => Vector3.left,
+            KeyCode.D => Vector3.right,
+            _ => Vector3.zero
+        };
+
         return direction;
     }
     

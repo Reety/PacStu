@@ -5,13 +5,13 @@ using UnityEngine;
 
 public static class UtilClass
 {
-    public static Dictionary<KeyCode, string> KeyToAnimation = new Dictionary<KeyCode, string>()
+    public static Dictionary<KeyCode, int> KeyToAnimation = new Dictionary<KeyCode, int>()
     {
-        [KeyCode.W] = "Up",
-        [KeyCode.A] = "Left",
-        [KeyCode.S] = "Down",
-        [KeyCode.D] = "Right",
-        [KeyCode.None] = "Down"
+        [KeyCode.W] = Animator.StringToHash("Up"),
+        [KeyCode.A] = Animator.StringToHash("Left"),
+        [KeyCode.S] = Animator.StringToHash("Down"),
+        [KeyCode.D] = Animator.StringToHash("Right"),
+        [KeyCode.None] = Animator.StringToHash("Down"),
     };
         
     public static Matrix4x4
