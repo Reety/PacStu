@@ -7,7 +7,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class CherryController : MonoBehaviour
 {
-    [SerializeField] private GameObject cherryPrefab;
+    [SerializeField] private CherryVisible cherryPrefab;
+    
     // Start is called before the first frame update
     float vertSize => Camera.main.orthographicSize;
     float horSize => vertSize * Camera.main.aspect;
@@ -16,6 +17,12 @@ public class CherryController : MonoBehaviour
 
     private float spawnTime = 10f;
     private float counter = 0;
+    [SerializeField] float speed = 5f;
+    
+
+
+
+
     void Awake()
     {
         positionFunctions[0] = RandomVertPoint;
@@ -31,13 +38,16 @@ public class CherryController : MonoBehaviour
     void Update()
     {
         counter += Time.deltaTime;
-        if (counter >= spawnTime)
-        {
-            Vector3 position = positionFunctions[UnityEngine.Random.Range(0, positionFunctions.Length)].Invoke();
-            Instantiate(cherryPrefab, position, Quaternion.identity);
-            counter = 0;
-        }
         
+        if (!(counter >= spawnTime)) return;
+        
+        Vector3 position = positionFunctions[UnityEngine.Random.Range(0, positionFunctions.Length)].Invoke();
+        CherryVisible newCherry  = Instantiate(cherryPrefab, position, Quaternion.identity);
+        newCherry.Initialise(speed);
+           
+        counter = 0;
+
+
     }
 
     public Vector3 RandomVertPoint()
@@ -53,4 +63,6 @@ public class CherryController : MonoBehaviour
         float y = UnityEngine.Random.Range(-vertSize-1, vertSize+1);
         return new Vector3(x, y, 0);
     }
+
+
 }

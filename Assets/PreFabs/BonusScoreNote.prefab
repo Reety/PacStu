@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7412583192085747926}
   - component: {fileID: 6713008929530308298}
+  - component: {fileID: 5008591441837745323}
   m_Layer: 0
   m_Name: BonusScoreNote
   m_TagString: Untagged
@@ -72,9 +73,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -166616529
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 03e098e92e975ba4a8ca9e98b1573717, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -86,3 +87,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5008591441837745323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171418645032954074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730c134f7a0b36648a6566af88cbd1d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
