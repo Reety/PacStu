@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Movement
@@ -10,6 +11,7 @@ namespace Movement
 
         private float trailEmitPeriod = 0.05f;
         private float counter = 0;
+        private bool collided = false;
         
         private Vector3 
             movingRight = new Vector3(0, 0, 90),
@@ -34,10 +36,11 @@ namespace Movement
         void Update()
         {
             counter += Time.deltaTime;
-            
-            if (pacStu.CurrentState == Idle)
+
+            if (pacStu.CurrentState == Idle || collided) 
             {
                 moveParticle.Stop();
+                if (pacStu.CurrentState == Idle) collided = false;
                 return;
             }
 
@@ -60,6 +63,12 @@ namespace Movement
             moveParticle.Play();
             
             return;
+        }
+
+        void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Wall")) return;
+            collided = true;
         }
     }
 }

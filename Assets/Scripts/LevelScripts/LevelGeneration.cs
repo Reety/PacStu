@@ -61,13 +61,14 @@ namespace LevelScripts
         {
 
             ortho.orthographicSize = levelMap.GetLength(0);
-
+        
+            /*
             foreach (Transform child in wallMap.transform) 
                 Destroy(child.gameObject);
         
             foreach (Transform child in pelMap.transform)
                 Destroy(child.gameObject);
-        
+        */
             wallMap.ClearAllTiles();
             pelMap.ClearAllTiles();
 
