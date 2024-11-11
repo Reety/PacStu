@@ -64,10 +64,10 @@ public class PacStudentController : MonoBehaviour
     {
         if (tweener.IsTweening) return; 
         // if the last input can be navigated to then makes that the current input
-        currentinput = (!levelmap.IsWall(LastInputNextCell) && lastinput != KeyCode.None) ? lastinput : currentinput; 
-        
-        if (levelmap.IsWall(CurrentInputNextCell) || currentinput == KeyCode.None) return; //if currentinput also can't be moved to then return 
-        
+        //currentinput = (!levelmap.IsWall(LastInputNextCell) && lastinput != KeyCode.None) ? lastinput : currentinput; 
+        currentinput = (lastinput != KeyCode.None) ? lastinput : currentinput; 
+        //if (levelmap.IsWall(CurrentInputNextCell) || currentinput == KeyCode.None) return; //if currentinput also can't be moved to then return 
+        if (currentinput == KeyCode.None) return; 
         //makes sure to only trigger the animation if direction changes to avoid weird things with trigger parametres
         if (lastTrigger != UtilClass.KeyToAnimation[currentinput])
         {
