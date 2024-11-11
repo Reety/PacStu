@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,8 +16,11 @@ public class PacStudentController : MonoBehaviour
     private AudioSource audioSrc;
     [SerializeField] private AudioClip moveAudio;
     [SerializeField] private AudioClip pelAudio;
+    [SerializeField] private AudioClip hitWall;
 
     private int lastTrigger = 0;
+    private Rigidbody2D body;
+        
 
     private KeyCode lastinput = KeyCode.None;
     private KeyCode currentinput = KeyCode.None;
@@ -29,11 +33,12 @@ public class PacStudentController : MonoBehaviour
      */
     private Vector3 LastInputNextCell => levelmap.GetCentre(CurrentPosition + GetMovementDirection(lastinput));
     private Vector3 CurrentInputNextCell => levelmap.GetCentre(CurrentPosition + GetMovementDirection(currentinput));
-    
+
+    private Vector3 lastLerpablePosition;
     private float Duration => (CurrentPosition - CurrentInputNextCell).magnitude/speed;
-    
+    private float HitWallDuration => (CurrentPosition - lastLerpablePosition).magnitude/speed;
     private float MoveAudioPitch => moveAudio.length / anim.GetCurrentAnimatorStateInfo(0).length;
-    private float PelAudioPitch => (pelAudio.length/2) / Duration;
+    private float PelAudioPitch => pelAudio.length / Duration;
 
 
     // Start is called before the first frame update
@@ -44,6 +49,7 @@ public class PacStudentController : MonoBehaviour
         anim = GetComponent<Animator>();
         audioSrc = GetComponent<AudioSource>();
         transform.position = levelmap.GetCentre(transform.position);
+        body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -55,18 +61,26 @@ public class PacStudentController : MonoBehaviour
         if (!tweener.IsTweening && lastTrigger != Idle)
         {
             anim.SetTrigger(Idle);
-            audioSrc.Stop();
+            audioSrc.loop = false;
             lastTrigger = Idle;
         }
     }
+
+
 
     private void Move()
     {
         if (tweener.IsTweening) return; 
         // if the last input can be navigated to then makes that the current input
-        //currentinput = (!levelmap.IsWall(LastInputNextCell) && lastinput != KeyCode.None) ? lastinput : currentinput; 
-        currentinput = (lastinput != KeyCode.None) ? lastinput : currentinput; 
-        //if (levelmap.IsWall(CurrentInputNextCell) || currentinput == KeyCode.None) return; //if currentinput also can't be moved to then return 
+        currentinput = (!levelmap.IsWall(LastInputNextCell) && lastinput != KeyCode.None) ? lastinput : currentinput;
+
+        if (currentinput == KeyCode.None) return;
+        
+        if (!levelmap.IsWall(CurrentPosition))
+        {
+            lastLerpablePosition = CurrentPosition;
+        }
+            //return; //if currentinput also can't be moved to then return 
         if (currentinput == KeyCode.None) return; 
         //makes sure to only trigger the animation if direction changes to avoid weird things with trigger parametres
         if (lastTrigger != UtilClass.KeyToAnimation[currentinput])
@@ -74,7 +88,7 @@ public class PacStudentController : MonoBehaviour
             anim.SetTrigger(UtilClass.KeyToAnimation[currentinput]);    
             lastTrigger = UtilClass.KeyToAnimation[currentinput];
         }
-
+        //print("moving");
         //print($"moving {UtilClass.KeyToAnimation[currentinput]}");
         tweener.AddTween(transform, CurrentPosition, CurrentInputNextCell, Duration);
         PlayAudio();
@@ -114,6 +128,20 @@ public class PacStudentController : MonoBehaviour
 
         return direction;
     }
-    
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        //print("Collision!");
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            audioSrc.Stop();
+            audioSrc.loop = false;
+            audioSrc.clip = hitWall;
+            tweener.CancelTween(transform); 
+            tweener.AddTween(transform, CurrentPosition, lastLerpablePosition, HitWallDuration);
+            currentinput = KeyCode.None;
+            audioSrc.pitch = 1;
+            audioSrc.Play();
+        }
+    }
 }

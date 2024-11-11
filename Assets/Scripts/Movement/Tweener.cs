@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tweener : MonoBehaviour
@@ -64,6 +65,13 @@ public class Tweener : MonoBehaviour
            activeTween.Add(new Tween(targetObject, startPos, endPos, Time.time, duration));
            return true;
         }
+    }
+
+    public bool CancelTween(Transform target)
+    {
+        if (!TweenExists(target)) return false;
+        else activeTween.Remove(activeTween.FirstOrDefault());
+        return true;
     }
 
     public bool TweenExists(Transform target)
