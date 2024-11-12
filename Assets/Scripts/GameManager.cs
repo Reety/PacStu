@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum BGMState
+{
+    GhostScared,
+    NormalBGM,
+    GhostDying
+}
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private SaveGameManager saveManager;
@@ -45,6 +51,6 @@ public class GameManager : MonoBehaviour
         {
             CurrentScore = 0;
             uiManager.LoadMainGameUI();
-        }
+        } 
     }
 }

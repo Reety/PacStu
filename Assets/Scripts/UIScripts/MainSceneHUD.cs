@@ -18,6 +18,7 @@ public class MainSceneHUD : MonoBehaviour
 
     public Button QuitButton;
     // Start is called before the first frame update
+    
 
     public void Initialize()
     {
@@ -29,12 +30,15 @@ public class MainSceneHUD : MonoBehaviour
         
         PelletCollision.OnCollision += UpdateScorePellet;
         CherryCollision.OnCollision += UpdateScoreCherry;
+        TouristController.OnGhostScared += OnGhostsScared;
+        TouristController.OnGhostRecovered += OnGhostsRecovered;
     }
 
     void Awake()
     {
         Initialize();
     }
+    
 
     void Start()
     {
@@ -44,7 +48,10 @@ public class MainSceneHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GhostTimer.gameObject.activeSelf)
+        {
+            GhostTimer.text = TouristController.GhostCounter.ToString();
+        }
     }
 
     private void UpdateScorePellet()
@@ -52,10 +59,29 @@ public class MainSceneHUD : MonoBehaviour
         GameManager.CurrentScore += 10;
         Score.text = $"{GameManager.CurrentScore}";
     }
+    
 
     private void UpdateScoreCherry()
     {
         GameManager.CurrentScore += 100;
         Score.text = $"{GameManager.CurrentScore}";
+    }
+
+    private void OnGhostsScared()
+    {
+        GhostTimer.gameObject.SetActive(true);
+    }
+
+    private void OnGhostsRecovered()
+    {
+        GhostTimer.gameObject.SetActive(false);
+    }
+
+    void OnDestroy()
+    {
+        PelletCollision.OnCollision -= UpdateScorePellet;
+        CherryCollision.OnCollision -= UpdateScoreCherry;
+        TouristController.OnGhostScared -= OnGhostsScared;
+        TouristController.OnGhostRecovered -= OnGhostsRecovered;
     }
 }
