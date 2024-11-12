@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,7 +7,8 @@ namespace LevelScripts
 {
     public class LevelGeneration : MonoBehaviour
     {
-    
+        
+        public GameObject TeleportCollider;
         public Tilemap wallMap;
         public WallTiles wall;
     
@@ -54,14 +56,20 @@ namespace LevelScripts
         private static Vector3[][] fullMapVector = new Vector3[fullMap.GetLength(0)][];
 
         private LevelMap _levelMap;
+        private int colliderRow = levelMap.GetLength(0) - 1;
+
+        private int[] colliderColumns = new int[]
+        {
+            0,
+            levelMap.GetLength(1) * 2 - 1,
+        };
     
 
         // Start is called before the first frame update
         void Awake()
         {
-
+            
             ortho.orthographicSize = levelMap.GetLength(0);
-        
             /*
             foreach (Transform child in wallMap.transform) 
                 Destroy(child.gameObject);
@@ -155,6 +163,9 @@ namespace LevelScripts
                         case Spel:
                             pelMap.SetTile(Vector3Int.FloorToInt(currPos),sPellet);
                             break;
+                        case Empty:
+                            if (colliderRow==row && colliderColumns.Contains(col)) PlaceTeleportCollider(row,col,currPos);
+                            break;
                     }
 
                     currPos += Vector3.right;
@@ -163,6 +174,14 @@ namespace LevelScripts
             }
         }
 
+        private void PlaceTeleportCollider(int row, int col, Vector3 position)
+        {
+            GameObject teleportCollider = Instantiate(TeleportCollider,wallMap.GetCellCenterWorld(Vector3Int.FloorToInt(position)),Quaternion.identity);
+            if (colliderColumns[1] == col)
+            {
+                teleportCollider.transform.localRotation = Quaternion.Euler(0, 0, 180);
+            }
+        }
         private void PlaceTJunction(int row, int col, Vector3 position)
         {
             Vector3Int pos = Vector3Int.FloorToInt(position);
@@ -271,6 +290,7 @@ namespace LevelScripts
 
             return false;
         }
+        
     
     
     }

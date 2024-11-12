@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea2b3d77e7ba524494466850386f92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TeleportCollider: {fileID: 7413561016800416097, guid: 961a401f0cb25e748aff08c80f3b2553, type: 3}
   wallMap: {fileID: 2027917670}
   wall: {fileID: 0}
   pelMap: {fileID: 1357653570}
@@ -15888,7 +15889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallParticles: {fileID: 705010072}
-  level: {fileID: 214482992}
 --- !u!1 &2059835355
 GameObject:
   m_ObjectHideFlags: 0
