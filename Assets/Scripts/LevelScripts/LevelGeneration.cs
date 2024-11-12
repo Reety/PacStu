@@ -8,7 +8,7 @@ namespace LevelScripts
     public class LevelGeneration : MonoBehaviour
     {
         
-        public GameObject TeleportCollider;
+        public TeleportTrigger TeleportCollider;
         public Tilemap wallMap;
         public WallTiles wall;
     
@@ -17,7 +17,8 @@ namespace LevelScripts
         public TileBase sPellet;
 
         public Camera ortho;
-    
+
+        private Grid grid;
         /*
      * 0 - empty
      * 1 - outside corner
@@ -68,7 +69,7 @@ namespace LevelScripts
         // Start is called before the first frame update
         void Awake()
         {
-            
+            grid = GetComponent<Grid>();
             ortho.orthographicSize = levelMap.GetLength(0);
             /*
             foreach (Transform child in wallMap.transform) 
@@ -176,11 +177,14 @@ namespace LevelScripts
 
         private void PlaceTeleportCollider(int row, int col, Vector3 position)
         {
-            GameObject teleportCollider = Instantiate(TeleportCollider,wallMap.GetCellCenterWorld(Vector3Int.FloorToInt(position)),Quaternion.identity);
+            Vector2 positionCenter = grid.GetCellCenterWorld(Vector3Int.FloorToInt(position));
+            TeleportTrigger teleportCollider = Instantiate(TeleportCollider,positionCenter,Quaternion.identity);
+            teleportCollider.Initialise(new Vector3(-positionCenter.x+2, positionCenter.y, position.z));
             if (colliderColumns[1] == col)
             {
                 teleportCollider.transform.localRotation = Quaternion.Euler(0, 0, 180);
             }
+   
         }
         private void PlaceTJunction(int row, int col, Vector3 position)
         {

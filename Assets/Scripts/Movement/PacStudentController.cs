@@ -144,4 +144,10 @@ public class PacStudentController : MonoBehaviour
             audioSrc.Play();
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Teleport")) return;
+        tweener.CancelTween(transform);
+    }
 }

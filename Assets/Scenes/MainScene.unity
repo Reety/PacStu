@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea2b3d77e7ba524494466850386f92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeleportCollider: {fileID: 7413561016800416097, guid: 961a401f0cb25e748aff08c80f3b2553, type: 3}
+  TeleportCollider: {fileID: 7718410485272725745, guid: 961a401f0cb25e748aff08c80f3b2553, type: 3}
   wallMap: {fileID: 2027917670}
   wall: {fileID: 0}
   pelMap: {fileID: 1357653570}
@@ -1061,7 +1061,7 @@ Transform:
   m_GameObject: {fileID: 614489667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.52, y: 13.6, z: 0}
+  m_LocalPosition: {x: -11.5, y: 13.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
