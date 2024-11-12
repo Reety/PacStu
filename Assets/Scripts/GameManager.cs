@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private SaveGameManager saveManager;
     [SerializeField] private UIManager uiManager;
+
+    public static int CurrentScore = 0;
     
     
     // Start is called before the first frame update
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "MainScene")
         {
+            CurrentScore = 0;
             uiManager.LoadMainGameUI();
         }
     }

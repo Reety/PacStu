@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CollisionScripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,12 +21,20 @@ public class MainSceneHUD : MonoBehaviour
 
     public void Initialize()
     {
-        Score.text = "0";
+        Score.text = $"{GameManager.CurrentScore}";
         Timer.text = $"{TimeSpan.Zero:hh\\:mm\\:ss}";
         GhostTimer.text = "0";
         GhostTimer.gameObject.SetActive(false);
         QuitButton.onClick.RemoveAllListeners();
+        
+        PelletCollision.OnCollision += UpdateScore;
     }
+
+    void Awake()
+    {
+        Initialize();
+    }
+
     void Start()
     {
         
@@ -35,5 +44,11 @@ public class MainSceneHUD : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void UpdateScore()
+    {
+        GameManager.CurrentScore += 10;
+        Score.text = $"{GameManager.CurrentScore}";
     }
 }
