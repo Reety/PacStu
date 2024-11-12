@@ -7,7 +7,6 @@ namespace CollisionScripts
     {
         [SerializeField] private ParticleSystem wallParticles;
 
-        [SerializeField] private LevelMap level;
         // Start is called before the first frame update
 
         private void Awake()
@@ -32,9 +31,9 @@ namespace CollisionScripts
         
             if (!other.gameObject.CompareTag("Player")) return;
 
-            int collisionCount = other.contactCount;
+            
             Vector3 collisionPoint = other.GetContact(0).point;
-            print($"{collisionPoint}");
+           
             wallParticles.transform.position = collisionPoint;
             wallParticles.Play();
         }
