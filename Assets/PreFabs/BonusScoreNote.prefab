@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7412583192085747926}
   - component: {fileID: 6713008929530308298}
   - component: {fileID: 5008591441837745323}
+  - component: {fileID: 6280938813487168507}
+  - component: {fileID: 6382278998455128714}
   m_Layer: 0
   m_Name: BonusScoreNote
   m_TagString: Untagged
@@ -97,5 +99,77 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730c134f7a0b36648a6566af88cbd1d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &6280938813487168507
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171418645032954074}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.27531138, y: 0.4132181}
+      - {x: -0.2809863, y: -0.01913447}
+      - {x: -0.39152268, y: -0.08110694}
+      - {x: -0.40237033, y: -0.25102937}
+      - {x: -0.3471022, y: -0.32902262}
+      - {x: -0.09762966, y: -0.3362542}
+      - {x: -0.086616196, y: -0.2659776}
+      - {x: 0.095158555, y: -0.2683016}
+      - {x: 0.11210849, y: -0.33793336}
+      - {x: 0.3848183, y: -0.32902262}
+      - {x: 0.39875448, y: -0.260848}
+      - {x: 0.40237033, y: 0.40392727}
+      - {x: 0.34968862, y: 0.40598628}
+  m_UseDelaunayMesh: 0
+--- !u!114 &6382278998455128714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171418645032954074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b168ba663ce61a44ab9fe7ce6e03d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

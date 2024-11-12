@@ -27,7 +27,8 @@ public class MainSceneHUD : MonoBehaviour
         GhostTimer.gameObject.SetActive(false);
         QuitButton.onClick.RemoveAllListeners();
         
-        PelletCollision.OnCollision += UpdateScore;
+        PelletCollision.OnCollision += UpdateScorePellet;
+        CherryCollision.OnCollision += UpdateScoreCherry;
     }
 
     void Awake()
@@ -46,9 +47,15 @@ public class MainSceneHUD : MonoBehaviour
         
     }
 
-    private void UpdateScore()
+    private void UpdateScorePellet()
     {
         GameManager.CurrentScore += 10;
+        Score.text = $"{GameManager.CurrentScore}";
+    }
+
+    private void UpdateScoreCherry()
+    {
+        GameManager.CurrentScore += 100;
         Score.text = $"{GameManager.CurrentScore}";
     }
 }
