@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 42943810}
   m_Layer: 0
   m_Name: BonusScoreController
-  m_TagString: Untagged
+  m_TagString: CherryController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17020,7 +17020,7 @@ GameObject:
   - component: {fileID: 1357653572}
   m_Layer: 0
   m_Name: Interactables
-  m_TagString: Untagged
+  m_TagString: Interactables
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19093,7 +19093,7 @@ GameObject:
   - component: {fileID: 1902810784}
   m_Layer: 0
   m_Name: GhostController
-  m_TagString: Untagged
+  m_TagString: EnemyController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

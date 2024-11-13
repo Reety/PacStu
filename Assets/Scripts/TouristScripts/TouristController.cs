@@ -31,7 +31,7 @@ public class TouristController : MonoBehaviour
     private Animator RedAnimator => TouristRed.GetComponent<Animator>();
     private Animator PinkAnimator => TouristPink.GetComponent<Animator>();
     
-    void Awake()
+    public void Initialise()
     {
         instance = this;
         animators = new List<Animator>();

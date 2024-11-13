@@ -21,7 +21,7 @@ public class BGM : MonoBehaviour
     {
         instance = this;
     }
-    void Start()
+    public void Initialise()
     {
         bgmPlayer = GetComponent<AudioSource>();
         bgmPlayer.playOnAwake = false;

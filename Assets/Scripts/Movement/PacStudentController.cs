@@ -49,7 +49,7 @@ public class PacStudentController : MonoBehaviour
 
     // Start is called before the first frame update
 
-    void Start()
+    public void Initialise()
     {
         tweener = GetComponent<Tweener>();
         anim = GetComponent<Animator>();

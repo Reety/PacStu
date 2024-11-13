@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class MainSceneHUD : MonoBehaviour
 {
+    private MainSceneManager mainScene;
     public GameObject Lives;
     private int lives = 3;
 
@@ -30,6 +31,8 @@ public class MainSceneHUD : MonoBehaviour
         GhostTimer.text = "0";
         GhostTimer.gameObject.SetActive(false);
         QuitButton.onClick.RemoveAllListeners();
+
+        mainScene = new MainSceneManager(GameObject.FindGameObjectWithTag("Player").GetComponent<PacStudentController>(),GameObject.FindGameObjectWithTag("EnemyController").GetComponent<TouristController>());
         
         PelletCollision.OnCollision += UpdateScorePellet;
         CherryCollision.OnCollision += UpdateScoreCherry;
@@ -47,12 +50,14 @@ public class MainSceneHUD : MonoBehaviour
 
     void Awake()
     {
-        Initialize();
+        
+        
     }
     
 
     void Start()
     {
+        Initialize();
         StartCoroutine(StartGameCountDown());
     }
 
@@ -94,6 +99,7 @@ public class MainSceneHUD : MonoBehaviour
         }
 
         GameCountDown.enabled = false;
+        mainScene.StartGame();
         StartCoroutine(StartGameTimer());
     }
 
