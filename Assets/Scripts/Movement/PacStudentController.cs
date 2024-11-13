@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using LevelScripts;
+using Movement;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 
@@ -10,22 +11,27 @@ public class PacStudentController : MonoBehaviour
 {
     [SerializeField] private float speed = 1.5f;
     [SerializeField] private LevelMap levelmap;
-    
+
+    public static event Action OnPacStuDeath;
+
+    private Collider2D playerCollider;
     private Tweener tweener;
     private Animator anim;
     private AudioSource audioSrc;
+    private ParticleController particle;
     [SerializeField] private AudioClip moveAudio;
     [SerializeField] private AudioClip pelAudio;
     [SerializeField] private AudioClip hitWall;
+    [SerializeField] private AudioClip dying;
 
     private int lastTrigger = 0;
-    private Rigidbody2D body;
+    private bool pacstuDying = false;
         
 
     private KeyCode lastinput = KeyCode.None;
     private KeyCode currentinput = KeyCode.None;
     private static readonly int Idle = Animator.StringToHash("Idle");
-
+    
     public int CurrentState => anim.GetCurrentAnimatorStateInfo(0).tagHash;
     private Vector3 CurrentPosition => transform.position;
     /*
@@ -48,8 +54,9 @@ public class PacStudentController : MonoBehaviour
         tweener = GetComponent<Tweener>();
         anim = GetComponent<Animator>();
         audioSrc = GetComponent<AudioSource>();
+        particle = GetComponent<ParticleController>();
+        playerCollider = GetComponent<Collider2D>();
         transform.position = levelmap.GetCentre(transform.position);
-        body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -58,9 +65,9 @@ public class PacStudentController : MonoBehaviour
         if (Input.anyKeyDown) lastinput = GetInput();
         Move();
         
-        if (!tweener.IsTweening && lastTrigger != Idle)
+        if (!tweener.IsTweening && !pacstuDying)
         {
-            anim.SetTrigger(Idle);
+            if (CurrentState != Idle) anim.SetTrigger(Idle);
             audioSrc.loop = false;
             lastTrigger = Idle;
         }
@@ -70,11 +77,10 @@ public class PacStudentController : MonoBehaviour
 
     private void Move()
     {
-        if (tweener.IsTweening) return; 
+        if (tweener.IsTweening || pacstuDying) return; 
+        
         // if the last input can be navigated to then makes that the current input
         currentinput = (!levelmap.IsWall(LastInputNextCell) && lastinput != KeyCode.None) ? lastinput : currentinput;
-
-        if (currentinput == KeyCode.None) return;
         
         if (!levelmap.IsWall(CurrentPosition))
         {
@@ -91,6 +97,8 @@ public class PacStudentController : MonoBehaviour
         //print("moving");
         //print($"moving {UtilClass.KeyToAnimation[currentinput]}");
         tweener.AddTween(transform, CurrentPosition, CurrentInputNextCell, Duration);
+        if (!particle.emitParticle) particle.StartParticle();
+        
         PlayAudio();
     }
 
@@ -134,20 +142,75 @@ public class PacStudentController : MonoBehaviour
         //print("Collision!");
         if (other.gameObject.CompareTag("Wall"))
         {
-            audioSrc.Stop();
-            audioSrc.loop = false;
-            audioSrc.clip = hitWall;
+            SetSpecialAudio(hitWall);
             tweener.CancelTween(transform); 
+            particle.StopParticle();
             tweener.AddTween(transform, CurrentPosition, lastLerpablePosition, HitWallDuration);
             currentinput = KeyCode.None;
-            audioSrc.pitch = 1;
             audioSrc.Play();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Teleport")) return;
+        if (other.gameObject.CompareTag("Teleport"))
+            tweener.CancelTween(transform);
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            EnemyCollision(other);
+        }
+    }
+
+    private void EnemyCollision(Collider2D other)
+    {
+        if (!TouristController.instance.TouristScared(other.gameObject))
+        {
+            StartCoroutine(Death());
+            return;
+        }
+        
+        TouristController.instance.KillTourist(other.gameObject);
+    }
+
+    private IEnumerator Death()
+    {
         tweener.CancelTween(transform);
+        particle.StopParticle();
+        pacstuDying = true;
+        playerCollider.enabled = false;
+        anim.SetTrigger(UtilClass.Death);
+        particle.PlayDeathParticle();
+        SetSpecialAudio(dying);
+        audioSrc.Play();
+        OnPacStuDeath?.Invoke();
+        while (CurrentState != UtilClass.Respawn)
+        {
+            yield return null;
+        }
+        
+        Reset();
+        
+        while (CurrentState != UtilClass.Idle)
+        {
+            yield return null;
+        }
+        pacstuDying = false;
+        playerCollider.enabled = true;
+    }
+
+    private void Reset()
+    {
+        transform.position = levelmap.PlayerStartPos;
+        lastinput = KeyCode.None;
+        currentinput = KeyCode.None;
+        //anim.SetTrigger(UtilClass.Idle);
+    }
+
+    private void SetSpecialAudio(AudioClip clip)
+    {
+        audioSrc.Stop();
+        audioSrc.loop = false;
+        audioSrc.clip = clip;
+        audioSrc.pitch = 1;
     }
 }

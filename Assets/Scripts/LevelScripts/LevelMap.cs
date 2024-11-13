@@ -24,6 +24,7 @@ namespace LevelScripts
         private Grid grid;
 
         private Vector3[][] vectorMap;
+        public Vector3 PlayerStartPos => GetCentre(vectorMap[1][1]);
     
         // Start is called before the first frame update
         void Start()
@@ -46,7 +47,8 @@ namespace LevelScripts
             grid = this.walls.layoutGrid;
         }
 
-        public Vector3 GetCentre(Vector3 point) => interactables.GetCellCenterWorld(Vector3Int.FloorToInt(point));
+        
+        public Vector3 GetCentre(Vector3 point) => grid.GetCellCenterWorld(Vector3Int.FloorToInt(point));
     
         public bool IsWall(Vector3 point) => walls.HasTile(Vector3Int.FloorToInt(point));
 

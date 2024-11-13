@@ -11,8 +11,16 @@ public static class UtilClass
         [KeyCode.A] = Animator.StringToHash("Left"),
         [KeyCode.S] = Animator.StringToHash("Down"),
         [KeyCode.D] = Animator.StringToHash("Right"),
-        [KeyCode.None] = Animator.StringToHash("Down"),
+        [KeyCode.None] = Animator.StringToHash("Idle"),
     };
+
+    public static int Up = Animator.StringToHash("Up");
+    public static int Left = Animator.StringToHash("Left");
+    public static int Down = Animator.StringToHash("Down");
+    public static int Right = Animator.StringToHash("Right");
+    public static int Idle = Animator.StringToHash("Idle");
+    public static int Death = Animator.StringToHash("Death");
+    public static int Respawn = Animator.StringToHash("Respawn");
         
     public static Matrix4x4
         Rotate0 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 0)), 

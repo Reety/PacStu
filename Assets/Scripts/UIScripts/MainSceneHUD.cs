@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CollisionScripts;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public class MainSceneHUD : MonoBehaviour
 {
     public GameObject Lives;
+    private int lives = 3;
 
     public TMP_Text Score;
 
@@ -32,6 +34,14 @@ public class MainSceneHUD : MonoBehaviour
         CherryCollision.OnCollision += UpdateScoreCherry;
         TouristController.OnGhostScared += OnGhostsScared;
         TouristController.OnGhostRecovered += OnGhostsRecovered;
+        PacStudentController.OnPacStuDeath += OnPacStuDeath;
+    }
+
+    private void OnPacStuDeath()
+    {
+        if (Lives.transform.childCount == 0) return;
+        Lives.transform.GetChild(lives - 1)?.gameObject.SetActive(false);
+        lives--;
     }
 
     void Awake()
@@ -83,5 +93,6 @@ public class MainSceneHUD : MonoBehaviour
         CherryCollision.OnCollision -= UpdateScoreCherry;
         TouristController.OnGhostScared -= OnGhostsScared;
         TouristController.OnGhostRecovered -= OnGhostsRecovered;
+        PacStudentController.OnPacStuDeath -= OnPacStuDeath;
     }
 }

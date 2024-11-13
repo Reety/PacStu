@@ -6,12 +6,14 @@ namespace Movement
     public class ParticleController : MonoBehaviour
     {
         [SerializeField] ParticleSystem moveParticle;
+        [SerializeField] private ParticleSystem deathParticle;
 
         [SerializeField] private PacStudentController pacStu;
 
+        public bool emitParticle = false;
+        
         private float trailEmitPeriod = 0.05f;
         private float counter = 0;
-        private bool collided = false;
         
         private Vector3 
             movingRight = new Vector3(0, 0, 90),
@@ -37,14 +39,7 @@ namespace Movement
         {
             counter += Time.deltaTime;
 
-            if (pacStu.CurrentState == Idle || collided) 
-            {
-                moveParticle.Stop();
-                if (pacStu.CurrentState == Idle) collided = false;
-                return;
-            }
-
-            if (counter >= trailEmitPeriod)
+            if (counter >= trailEmitPeriod && emitParticle)
             {
                 ParticleSettings(pacStu.CurrentState);
                 counter = 0;
@@ -59,16 +54,28 @@ namespace Movement
             if (direction == WalkLeft) particleShape.rotation = movingLeft;
             if (direction == WalkRight) particleShape.rotation = movingRight;
             if (direction == WalkUp) particleShape.rotation = movingUp;
+            if (direction == Idle)
+            {
+                moveParticle.Stop();
+                return;
+            }
             
             moveParticle.Play();
-            
-            return;
         }
 
-        void OnCollisionEnter2D(Collision2D other)
+        public void StopParticle()
         {
-            if (!other.gameObject.CompareTag("Wall")) return;
-            collided = true;
+            emitParticle = false;
+            moveParticle.Stop();
+            counter = 0;
         }
+
+        public void PlayDeathParticle()
+        {
+            deathParticle.Play();
+        }
+
+        public void StartParticle() => emitParticle = true;
+
     }
 }
