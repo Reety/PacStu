@@ -17,6 +17,7 @@ public class MainSceneHUD : MonoBehaviour
     public TMP_Text Timer;
 
     public TMP_Text GhostTimer;
+    public TMP_Text GameCountDown;
 
     public Button QuitButton;
     // Start is called before the first frame update
@@ -52,7 +53,7 @@ public class MainSceneHUD : MonoBehaviour
 
     void Start()
     {
-        
+        StartCoroutine(StartGameCountDown());
     }
 
     // Update is called once per frame
@@ -61,6 +62,50 @@ public class MainSceneHUD : MonoBehaviour
         if (GhostTimer.gameObject.activeSelf)
         {
             GhostTimer.text = TouristController.GhostCounter.ToString();
+        }
+    }
+
+    private IEnumerator StartGameCountDown()
+    {
+        int count = 3;
+        Dictionary<int, Color> colorNo = new Dictionary<int, Color>()
+        {
+            [3] = Color.red,
+            [2] = Color.yellow,
+            [1] = Color.cyan,
+            [0] = Color.green
+        };
+
+        while (count >= 0)
+        {
+            if (count == 0)
+            {
+                GameCountDown.text = "GO";
+                GameCountDown.color = colorNo[count];
+            }
+            else
+            {
+                GameCountDown.text = count.ToString();
+                GameCountDown.color = colorNo[count];
+            }
+            
+            yield return new WaitForSeconds(1.0f);
+            count--;
+        }
+
+        GameCountDown.enabled = false;
+        StartCoroutine(StartGameTimer());
+    }
+
+    private IEnumerator StartGameTimer()
+    {
+        float time = 0;
+
+        while (lives != 0)
+        {
+            time += Time.deltaTime;
+            Timer.text = $"{TimeSpan.FromSeconds(time):mm\\:ss\\:ff}";
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
