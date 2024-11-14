@@ -39,8 +39,15 @@ public static class UtilClass
         return newRow;
     }
 
-    public static void InsertRow(this int[,] fullArray, int[] row, int rowIndex)
+    public static TimeSpan ParseStringToTimeSpan(string time)
     {
-        
+        var timeParts = time.Split(':');
+        if (timeParts.Length is 0 or > 3) return TimeSpan.Zero;
+
+        var minutes = int.Parse(timeParts[0]);
+        var seconds = int.Parse(timeParts[1]);
+        var milli = int.Parse(timeParts[2]);
+
+        return new TimeSpan(0, 0, minutes, seconds, milli);
     }
 }

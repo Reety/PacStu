@@ -10,7 +10,7 @@ using Debug = System.Diagnostics.Debug;
 public class PacStudentController : MonoBehaviour
 {
     [SerializeField] private float speed = 1.5f;
-    [SerializeField] private LevelMap levelmap;
+    [SerializeField] private LevelMapController levelmap;
 
     public static event Action OnPacStuDeath;
 
@@ -165,7 +165,7 @@ public class PacStudentController : MonoBehaviour
     {
         if (!TouristController.instance.TouristScared(other.gameObject))
         {
-            StartCoroutine(Death());
+            if (!pacstuDying) StartCoroutine(Death());
             return;
         }
         

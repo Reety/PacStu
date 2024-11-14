@@ -19,6 +19,7 @@ public class MainSceneHUD : MonoBehaviour
 
     public TMP_Text GhostTimer;
     public TMP_Text GameCountDown;
+    public TMP_Text GameOverText;
 
     public Button QuitButton;
     // Start is called before the first frame update
@@ -26,26 +27,35 @@ public class MainSceneHUD : MonoBehaviour
 
     public void Initialize()
     {
-        Score.text = $"{GameManager.CurrentScore}";
+        Score.text = $"{MainSceneManager.CurrentScore}";
         Timer.text = $"{TimeSpan.Zero:hh\\:mm\\:ss}";
         GhostTimer.text = "0";
         GhostTimer.gameObject.SetActive(false);
         QuitButton.onClick.RemoveAllListeners();
 
-        mainScene = new MainSceneManager(GameObject.FindGameObjectWithTag("Player").GetComponent<PacStudentController>(),GameObject.FindGameObjectWithTag("EnemyController").GetComponent<TouristController>());
+        mainScene = new MainSceneManager(GameObject.FindGameObjectWithTag("Player").GetComponent<PacStudentController>(),GameObject.FindGameObjectWithTag("EnemyController").GetComponent<TouristController>(),this);
         
         PelletCollision.OnCollision += UpdateScorePellet;
         CherryCollision.OnCollision += UpdateScoreCherry;
         TouristController.OnGhostScared += OnGhostsScared;
         TouristController.OnGhostRecovered += OnGhostsRecovered;
         PacStudentController.OnPacStuDeath += OnPacStuDeath;
+        
+        Debug.Log($"{lives}");
+        StartCoroutine(StartGameCountDown());
     }
 
     private void OnPacStuDeath()
     {
-        if (Lives.transform.childCount == 0) return;
-        Lives.transform.GetChild(lives - 1)?.gameObject.SetActive(false);
+        print($"lives");
+        if (lives == 0) return;
         lives--;
+        Lives.transform.GetChild(lives)?.gameObject.SetActive(false);
+        if (lives == 0)
+        {
+            MainSceneManager.MSManager.GameOver();
+        }
+        
     }
 
     void Awake()
@@ -57,8 +67,8 @@ public class MainSceneHUD : MonoBehaviour
 
     void Start()
     {
-        Initialize();
-        StartCoroutine(StartGameCountDown());
+        //Initialize();
+        
     }
 
     // Update is called once per frame
@@ -107,25 +117,26 @@ public class MainSceneHUD : MonoBehaviour
     {
         float time = 0;
 
-        while (lives != 0)
+        while (MainSceneManager.currentState == MainGameState.GamePlaying)
         {
             time += Time.deltaTime;
-            Timer.text = $"{TimeSpan.FromSeconds(time):mm\\:ss\\:ff}";
+            MainSceneManager.CurrentTime = TimeSpan.FromSeconds(time);
+            Timer.text = $"{MainSceneManager.CurrentTime:mm\\:ss\\:ff}";
             yield return new WaitForSeconds(0.01f);
         }
     }
 
     private void UpdateScorePellet()
     {
-        GameManager.CurrentScore += 10;
-        Score.text = $"{GameManager.CurrentScore}";
+        MainSceneManager.CurrentScore += 10;
+        Score.text = $"{MainSceneManager.CurrentScore}";
     }
     
 
     private void UpdateScoreCherry()
     {
-        GameManager.CurrentScore += 100;
-        Score.text = $"{GameManager.CurrentScore}";
+        MainSceneManager.CurrentScore += 100;
+        Score.text = $"{MainSceneManager.CurrentScore}";
     }
 
     private void OnGhostsScared()
@@ -136,6 +147,11 @@ public class MainSceneHUD : MonoBehaviour
     private void OnGhostsRecovered()
     {
         GhostTimer.gameObject.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        Instantiate(GameOverText.gameObject, transform);
     }
 
     void OnDestroy()

@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     private GameManager currentGame;
     public TMP_Text highscore_score;
     public TMP_Text highscore_time;
+    
+
+
 
     [SerializeField] private LevelButton levelButtons;
     
@@ -30,27 +33,30 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void ChangeHighscore(int score, string time)
-    {
-        highscore_score.text = $"{score}";
-        highscore_time.text = time;
-
+        //UpdateHighScore();
     }
 
     public void Initialise(GameManager game)
     {
         currentGame = game;
+        UpdateHighScore();
+        
     }
+
+    private void UpdateHighScore()
+    {
+        highscore_score.text = SaveGameManager.CurrentHighScore.ToString();
+        highscore_time.text = $@"{SaveGameManager.CurrentHighScoreTime:mm\:ss\:ff}";
+        
+    }
+    
 
     public void OnClick(string scene)
     {
         if (changingScene) return;
         changingScene = true;
         
-        levelButtons.ButtonAnimOver += LoadScene;
+        levelButtons.ButtonAnimOver += LoadGameScene;
         StartCoroutine(levelButtons.ButtonAnimate(scene));
 
     }
@@ -64,9 +70,9 @@ public class UIManager : MonoBehaviour
     }
     
 
-    private void LoadScene(string sceneName)
+    private void LoadGameScene(string sceneName)
     {
-        levelButtons.ButtonAnimOver -= LoadScene;
+        levelButtons.ButtonAnimOver -= LoadGameScene;
         currentGame.LoadScene(sceneName);
         changingScene = false;
     }

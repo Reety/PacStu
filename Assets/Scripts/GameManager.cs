@@ -12,19 +12,19 @@ public enum BGMState
 }
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private SaveGameManager saveManager;
-    [SerializeField] private UIManager uiManager;
-
-    public static int CurrentScore = 0;
+    [SerializeField] public SaveGameManager saveManager;
+    [SerializeField] public UIManager uiManager;
+    
     
     
     // Start is called before the first frame update
     private void Awake()
     {
+        //PlayerPrefs.DeleteAll();
         SceneManager.sceneLoaded += OnSceneLoaded;
         saveManager.Initialise(this);
         uiManager.Initialise(this);
-        uiManager.ChangeHighscore(saveManager.CurrentHighScore,saveManager.CurrentHighScoreTime);
+        
         
         DontDestroyOnLoad(this.gameObject);
     }
@@ -49,8 +49,13 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "MainScene")
         {
-            CurrentScore = 0;
             uiManager.LoadMainGameUI();
         } 
+        
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Destroyed");
     }
 }

@@ -56,7 +56,7 @@ namespace LevelScripts
         private static int[][] fullMap = new int[levelMap.GetLength(0) * 2 - 1][];
         private static Vector3[][] fullMapVector = new Vector3[fullMap.GetLength(0)][];
 
-        private LevelMap _levelMap;
+        private LevelMapController _levelMapController;
         private int colliderRow = levelMap.GetLength(0) - 1;
 
         private int[] colliderColumns = new int[]
@@ -98,14 +98,14 @@ namespace LevelScripts
         
             PlaceTiles();
         
-            _levelMap = gameObject.GetComponent<LevelMap>();
-            _levelMap.Initialize(wallMap, pelMap, fullMapVector);
+            _levelMapController = gameObject.GetComponent<LevelMapController>();
+            _levelMapController.Initialize(wallMap, pelMap, fullMapVector, sPellet);
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+            
         }
 
         private void AddTopLeft()

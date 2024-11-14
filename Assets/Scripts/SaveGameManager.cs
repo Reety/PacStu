@@ -8,9 +8,10 @@ public class SaveGameManager : MonoBehaviour
     private GameManager currentGame;
 
     private const string highScore = "high score";
+    private const string highScoreTime = "high score time";
     
-    public int CurrentHighScore => !PlayerPrefs.HasKey(highScore) ? 0 : PlayerPrefs.GetInt(highScore);
-    public string CurrentHighScoreTime => !PlayerPrefs.HasKey(highScore) ? "00:00:00" : PlayerPrefs.GetString(highScore);
+    public static int CurrentHighScore => !PlayerPrefs.HasKey(highScore) ? 0 : PlayerPrefs.GetInt(highScore);
+    public static TimeSpan CurrentHighScoreTime => !PlayerPrefs.HasKey(highScoreTime) ? TimeSpan.Zero : TimeSpan.FromSeconds(PlayerPrefs.GetFloat(highScoreTime));
 
     
     // Start is called before the first frame update
@@ -24,12 +25,32 @@ public class SaveGameManager : MonoBehaviour
     {
         
     }
+    
 
     public void Initialise(GameManager game)
     {
         currentGame = game;
-        PlayerPrefs.SetInt(highScore,0);
-        PlayerPrefs.SetString(highScore,"00:00:00");
+        if (!PlayerPrefs.HasKey(highScore))
+        {
+            PlayerPrefs.SetInt(highScore,0);
+            PlayerPrefs.SetFloat(highScoreTime,0);
+        }
+
+        //PlayerPrefs.Save();
+
+    }
+
+    public static void UpdateHighScore(int newScore, TimeSpan newTime)
+    {
+        if (newScore < CurrentHighScore) return;
+
+        if (newScore == CurrentHighScore && newTime > CurrentHighScoreTime) return;
+        
+        PlayerPrefs.SetInt(highScore,newScore);
+
+        float newTimef = (float)newTime.TotalSeconds;
+        PlayerPrefs.SetFloat(highScoreTime,newTimef);
+
         PlayerPrefs.Save();
 
     }
