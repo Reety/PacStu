@@ -9,7 +9,7 @@ public class Tweener : MonoBehaviour
     private List<Tween> activeTween = new List<Tween>();
 
     public bool IsTweening => activeTween.Count >= 1; //&& activeTween.First().StartTime < Time.time
-
+    
 
     // Start is called before the first frame update
     void Start()

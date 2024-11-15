@@ -56,7 +56,7 @@ public class PacStudentController : MonoBehaviour
         audioSrc = GetComponent<AudioSource>();
         particle = GetComponent<ParticleController>();
         playerCollider = GetComponent<Collider2D>();
-        transform.position = levelmap.GetCentre(transform.position);
+        transform.position = levelmap.PlayerStartPos;
     }
 
     // Update is called once per frame
@@ -67,6 +67,7 @@ public class PacStudentController : MonoBehaviour
         
         if (Input.anyKeyDown) lastinput = GetInput();
         Move();
+        
         
         if (!tweener.IsTweening && !pacstuDying)
         {

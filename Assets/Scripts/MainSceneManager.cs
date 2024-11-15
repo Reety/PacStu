@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LevelScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,11 +18,13 @@ public class MainSceneManager : MonoBehaviour
     
     public static MainGameState CurrentGameState;
     
-    [SerializeField] private PacStudentController mcController;
-    [SerializeField] private TouristController touristController;
+    [SerializeField] public PacStudentController mcController;
+    [SerializeField] public TouristController touristController;
     [SerializeField] BGM bgmController;
     [SerializeField] MainSceneHUD mainSceneHUD;
     [SerializeField] CherryController cherryController;
+
+    public Transform PlayableCharacter => mcController.transform;
 
     private Collider2D mcCollider => mcController.GetComponent<Collider2D>();
     
@@ -34,6 +37,11 @@ public class MainSceneManager : MonoBehaviour
         MSManager = this;
     }
 
+    private void Update()
+    {
+
+    }
+
     private void Start()
     {
         Initialise();
@@ -43,11 +51,12 @@ public class MainSceneManager : MonoBehaviour
     {
         CurrentGameState = MainGameState.GameStarting;
         
-        mcController.enabled = false;
         mcCollider.enabled = false;
-        touristController.enabled = false;
-        bgmController.enabled = false;
         cherryController.enabled = false;
+        
+        touristController.Initialise();
+        mcController.Initialise();
+        bgmController.Initialise();
         
         mainSceneHUD.Initialize();
 
@@ -55,14 +64,9 @@ public class MainSceneManager : MonoBehaviour
 
     public void StartGame()
     {
-        mcController.enabled = true;
         mcCollider.enabled = true;
-        touristController.enabled = true;
         bgmController.enabled = true;
         
-        mcController.Initialise();
-        touristController.Initialise();
-        bgmController.Initialise();
         cherryController.enabled = true;
 
         CurrentGameState = MainGameState.GamePlaying;

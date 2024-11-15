@@ -5,6 +5,11 @@ using UnityEngine;
 
 public static class UtilClass
 {
+    public static List<Vector3> Directions = new List<Vector3>()
+    {
+        Vector3.up, Vector3.down, Vector3.left, Vector3.right
+    };
+    
     public static Dictionary<KeyCode, int> KeyToAnimation = new Dictionary<KeyCode, int>()
     {
         [KeyCode.W] = Animator.StringToHash("Up"),

@@ -27,7 +27,7 @@ public class BGM : MonoBehaviour
         bgmPlayer.playOnAwake = false;
         bgmPlayer.clip = NormalBGM;
         bgmPlayer.loop = true;
-        bgmPlayer.Play();
+        //bgmPlayer.Play();
         //float introLength = introMusic.length + 0.5f;
 
         //StartCoroutine(StartBGM(introLength));

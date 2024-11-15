@@ -25,19 +25,23 @@ namespace LevelScripts
         private Grid grid;
         private TileBase sPellet;
 
+        public Bounds SpawnArea;
+        public Bounds TopSpawn; 
+        public Bounds BottomSpawn; 
+
         private Vector3[][] vectorMap;
         public Vector3 PlayerStartPos => GetCentre(vectorMap[1][1]);
         public Vector3[] GhostStartPositions {
             get
             {
-                int row = vectorMap.Length/2;
-                int col = vectorMap[row].Length/2;
+                int row = vectorMap.Length/2 - 1;
+                int col = vectorMap[row].Length/2 - 1;
                 return new[]
                 {
-                    vectorMap[row][col],
-                    vectorMap[row][col + 1],
-                    vectorMap[row][col + 2],
-                    vectorMap[row][col + 3]
+                    GetCentre(vectorMap[row][col]),
+                    GetCentre(vectorMap[row][col + 1]),
+                    GetCentre(vectorMap[row+2][col]),
+                    GetCentre(vectorMap[row+2][col + 1])
                 };
             }
 
@@ -47,6 +51,9 @@ namespace LevelScripts
         void Awake()
         {
             Instance = this;
+            SpawnArea = new Bounds(new Vector3(1,0.5f), new Vector3(6,5));
+            TopSpawn = new Bounds(new Vector3(1,1.75f), new Vector3(6, 2.5f));
+            BottomSpawn = new Bounds(new Vector3(1,-0.75f), new Vector3(6, 2.5f));
         }
 
         // Update is called once per frame
