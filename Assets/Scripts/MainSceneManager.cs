@@ -10,74 +10,69 @@ public enum MainGameState
     GamePlaying,
     GameOver
 }
-public class MainSceneManager
+public class MainSceneManager : MonoBehaviour
 {
+    
     public static MainSceneManager MSManager;
-    public static MainGameState currentState;
+    
+    public static MainGameState CurrentGameState;
+    
     [SerializeField] private PacStudentController mcController;
-
     [SerializeField] private TouristController touristController;
+    [SerializeField] BGM bgmController;
+    [SerializeField] MainSceneHUD mainSceneHUD;
+    [SerializeField] CherryController cherryController;
 
-    private BGM bgmController;
-
-    private MainSceneHUD mainSceneHUD;
-
-    private CherryController cherryController;
-
-    private Collider2D pelCollider;
-
-    private Tilemap pelMap;
+    private Collider2D mcCollider => mcController.GetComponent<Collider2D>();
     
     public static int CurrentScore = 0;
 
     public static TimeSpan CurrentTime = TimeSpan.Zero;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    public MainSceneManager(PacStudentController mc, TouristController tc, MainSceneHUD hud)
+    void Awake()
     {
         MSManager = this;
-        currentState = MainGameState.GameStarting;
-        mainSceneHUD = hud;
-        mcController = mc;
-        touristController = tc;
-        bgmController = BGM.instance;
+    }
+
+    private void Start()
+    {
+        Initialise();
+    }
+
+    public void Initialise()
+    {
+        CurrentGameState = MainGameState.GameStarting;
+        
         mcController.enabled = false;
+        mcCollider.enabled = false;
         touristController.enabled = false;
         bgmController.enabled = false;
-
-        cherryController = GameObject.FindGameObjectWithTag("CherryController").GetComponent<CherryController>();
-        pelMap = GameObject.FindGameObjectWithTag("Interactables").GetComponent<Tilemap>();
-        pelCollider = GameObject.FindGameObjectWithTag("Interactables").GetComponent<Collider2D>();
-
         cherryController.enabled = false;
-        pelCollider.enabled = false;
+        
+        mainSceneHUD.Initialize();
+
     }
 
     public void StartGame()
     {
         mcController.enabled = true;
+        mcCollider.enabled = true;
         touristController.enabled = true;
         bgmController.enabled = true;
+        
         mcController.Initialise();
         touristController.Initialise();
         bgmController.Initialise();
-
         cherryController.enabled = true;
-        pelCollider.enabled = true;
-        currentState = MainGameState.GamePlaying;
+
+        CurrentGameState = MainGameState.GamePlaying;
     }
 
     public void GameOver()
     {
-        mainSceneHUD.GameOver();
-        currentState = MainGameState.GameOver;
-        Debug.Log(CurrentTime.TotalSeconds);
-        Debug.Log(CurrentScore);
+        CurrentGameState = MainGameState.GameOver;
+        cherryController.enabled = false;
         SaveGameManager.UpdateHighScore(CurrentScore,CurrentTime);
-        // Update is called once per frame
+        mainSceneHUD.GameOver();
     }
 }

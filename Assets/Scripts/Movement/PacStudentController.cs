@@ -62,6 +62,9 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+ 
+        if (MainSceneManager.CurrentGameState != MainGameState.GamePlaying) return;
+        
         if (Input.anyKeyDown) lastinput = GetInput();
         Move();
         
@@ -163,13 +166,13 @@ public class PacStudentController : MonoBehaviour
 
     private void EnemyCollision(Collider2D other)
     {
-        if (!TouristController.instance.TouristScared(other.gameObject))
+        if (!TouristController.Instance.TouristScared(other.gameObject))
         {
             if (!pacstuDying) StartCoroutine(Death());
             return;
         }
         
-        TouristController.instance.KillTourist(other.gameObject);
+        TouristController.Instance.KillTourist(other.gameObject);
     }
 
     private IEnumerator Death()

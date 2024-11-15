@@ -13,6 +13,7 @@ TagManager:
   - EnemyController
   - Interactables
   - CherryController
+  - MainMenuUI
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,6 @@ using Button = UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private GameManager currentGame;
     public TMP_Text highscore_score;
     public TMP_Text highscore_time;
     
@@ -36,11 +35,9 @@ public class UIManager : MonoBehaviour
         //UpdateHighScore();
     }
 
-    public void Initialise(GameManager game)
+    public void Initialise()
     {
-        currentGame = game;
         UpdateHighScore();
-        
     }
 
     private void UpdateHighScore()
@@ -51,7 +48,7 @@ public class UIManager : MonoBehaviour
     }
     
 
-    public void OnClick(string scene)
+    public void OnClick(int scene)
     {
         if (changingScene) return;
         changingScene = true;
@@ -60,28 +57,15 @@ public class UIManager : MonoBehaviour
         StartCoroutine(levelButtons.ButtonAnimate(scene));
 
     }
-
-    public void OnQuitButton()
-    {
-        if (changingScene) return;
-        changingScene = true;
-        
-        currentGame.LoadScene("StartScene");
-    }
+    
     
 
-    private void LoadGameScene(string sceneName)
+    private void LoadGameScene(int sceneIndex)
     {
         levelButtons.ButtonAnimOver -= LoadGameScene;
-        currentGame.LoadScene(sceneName);
+        SceneManager.LoadScene((int)GameScene.MainScene);
         changingScene = false;
     }
-
-    public void LoadMainGameUI()
-    {
-        hudController = GameObject.FindGameObjectWithTag("HUD").GetComponent<MainSceneHUD>();
-        hudController.Initialize();
-        hudController.QuitButton.onClick.AddListener(OnQuitButton);
-    }
+    
 
 }

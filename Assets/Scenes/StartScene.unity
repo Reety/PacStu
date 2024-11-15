@@ -375,7 +375,6 @@ GameObject:
   - component: {fileID: 89254462}
   - component: {fileID: 89254464}
   - component: {fileID: 89254463}
-  - component: {fileID: 89254465}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -410,8 +409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361934577fcced04fb5b830340ab3bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveManager: {fileID: 89254464}
-  uiManager: {fileID: 89254465}
 --- !u!114 &89254464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,22 +421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c7f89c5ace3a34086f8151fee4d412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &89254465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89254461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 725f7f1ec3971ea47a96b210738e69a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highscore_score: {fileID: 752905252}
-  highscore_time: {fileID: 519337787}
-  levelButtons: {fileID: 1060808514}
-  ButtonAnimator: {fileID: 0}
 --- !u!1 &127217590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,14 +1756,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 89254465}
+      - m_Target: {fileID: 1359529342}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnClick
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: MainScene
           m_BoolArgument: 0
@@ -2413,8 +2394,8 @@ GameObject:
   - component: {fileID: 1359529338}
   - component: {fileID: 1359529342}
   m_Layer: 5
-  m_Name: MainMenu
-  m_TagString: Untagged
+  m_Name: MainMenuUI
+  m_TagString: MainMenuUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2513,9 +2494,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1359529337}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 423dac15ed2ba1742a62d6a084bf4ce7, type: 3}
+  m_Script: {fileID: 11500000, guid: 725f7f1ec3971ea47a96b210738e69a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highscore_score: {fileID: 752905252}
+  highscore_time: {fileID: 519337787}
+  levelButtons: {fileID: 1060808514}
 --- !u!1 &1444209501
 GameObject:
   m_ObjectHideFlags: 0

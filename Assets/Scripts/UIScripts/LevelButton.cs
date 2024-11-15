@@ -10,7 +10,7 @@ namespace UIScripts
     {
         [SerializeField] private Animator buttonAnim;
 
-        public event Action<string> ButtonAnimOver;
+        public event Action<int> ButtonAnimOver;
         // Start is called before the first frame update
         void Start()
         {
@@ -23,7 +23,7 @@ namespace UIScripts
         
         }
 
-        public IEnumerator ButtonAnimate(string sceneName)
+        public IEnumerator ButtonAnimate(int sceneIndex)
         {
             //waits for animations to finish before starting the next one
             AnimatorStateInfo currState = buttonAnim.GetCurrentAnimatorStateInfo(0);
@@ -31,7 +31,7 @@ namespace UIScripts
             AnimatorStateInfo newState = buttonAnim.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForSeconds(newState.length);
             
-            ButtonAnimOver?.Invoke(sceneName);
+            ButtonAnimOver?.Invoke(sceneIndex);
         }
     }
 }

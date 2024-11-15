@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GameScene
+{
+    StartScene = 0,
+    MainScene = 1
+}
 public enum BGMState
 {
     GhostScared,
@@ -12,21 +17,29 @@ public enum BGMState
 }
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] public SaveGameManager saveManager;
-    [SerializeField] public UIManager uiManager;
+    public static GameManager Instance;
+    
+    private UIManager uiManager;
+    
+    private MainSceneManager mainSceneManager;
+   
     
     
     
     // Start is called before the first frame update
     private void Awake()
     {
-        //PlayerPrefs.DeleteAll();
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        saveManager.Initialise(this);
-        uiManager.Initialise(this);
+        if(Instance == null) 
+        {
+            DontDestroyOnLoad(gameObject); 
+            Instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        } else if(Instance != this) 
+        {
+            Destroy(gameObject); 
+        }
         
         
-        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -39,23 +52,28 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
+    
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainScene")
+        switch (scene.buildIndex)
         {
-            uiManager.LoadMainGameUI();
-        } 
+            case ((int)GameScene.StartScene) :
+                uiManager = GameObject.FindGameObjectWithTag("MainMenuUI").GetComponent<UIManager>();
+                uiManager.Initialise();
+                break;
+            case ((int)GameScene.MainScene) :
+                //Debug.Log("loading main scene");
+                mainSceneManager = MainSceneManager.MSManager;
+                mainSceneManager.Initialise();
+                break;
+        }
+
         
     }
 
     private void OnDestroy()
     {
-        Debug.Log("Destroyed");
+        //Debug.Log("Destroyed");
     }
 }

@@ -37,9 +37,10 @@ public class BGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (MainSceneManager.CurrentGameState == MainGameState.GameStarting) return;
         if (!updateBGM) return;
         
-        bgmPlayer.clip = TouristController.instance.CurrentState switch
+        bgmPlayer.clip = TouristController.Instance.CurrentState switch
         {
             TouristState.TouristNormal when bgmPlayer.clip != NormalBGM => NormalBGM,
             TouristState.TouristScared when bgmPlayer.clip != GhostScared => GhostScared,

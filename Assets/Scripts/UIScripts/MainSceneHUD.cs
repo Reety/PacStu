@@ -5,6 +5,7 @@ using CollisionScripts;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainSceneHUD : MonoBehaviour
@@ -20,20 +21,19 @@ public class MainSceneHUD : MonoBehaviour
     public TMP_Text GhostTimer;
     public TMP_Text GameCountDown;
     public TMP_Text GameOverText;
-
-    public Button QuitButton;
+    
     // Start is called before the first frame update
     
 
     public void Initialize()
     {
+        mainScene = MainSceneManager.MSManager;
+        
         Score.text = $"{MainSceneManager.CurrentScore}";
         Timer.text = $"{TimeSpan.Zero:hh\\:mm\\:ss}";
+        
         GhostTimer.text = "0";
         GhostTimer.gameObject.SetActive(false);
-        QuitButton.onClick.RemoveAllListeners();
-
-        mainScene = new MainSceneManager(GameObject.FindGameObjectWithTag("Player").GetComponent<PacStudentController>(),GameObject.FindGameObjectWithTag("EnemyController").GetComponent<TouristController>(),this);
         
         PelletCollision.OnCollision += UpdateScorePellet;
         CherryCollision.OnCollision += UpdateScoreCherry;
@@ -41,13 +41,12 @@ public class MainSceneHUD : MonoBehaviour
         TouristController.OnGhostRecovered += OnGhostsRecovered;
         PacStudentController.OnPacStuDeath += OnPacStuDeath;
         
-        Debug.Log($"{lives}");
         StartCoroutine(StartGameCountDown());
     }
 
     private void OnPacStuDeath()
     {
-        print($"lives");
+        
         if (lives == 0) return;
         lives--;
         Lives.transform.GetChild(lives)?.gameObject.SetActive(false);
@@ -67,8 +66,8 @@ public class MainSceneHUD : MonoBehaviour
 
     void Start()
     {
+
         //Initialize();
-        
     }
 
     // Update is called once per frame
@@ -117,7 +116,7 @@ public class MainSceneHUD : MonoBehaviour
     {
         float time = 0;
 
-        while (MainSceneManager.currentState == MainGameState.GamePlaying)
+        while (MainSceneManager.CurrentGameState == MainGameState.GamePlaying)
         {
             time += Time.deltaTime;
             MainSceneManager.CurrentTime = TimeSpan.FromSeconds(time);
@@ -152,6 +151,12 @@ public class MainSceneHUD : MonoBehaviour
     public void GameOver()
     {
         Instantiate(GameOverText.gameObject, transform);
+        Invoke(nameof(OnQuitButton),3);
+    }
+
+    public void OnQuitButton()
+    {
+        SceneManager.LoadScene((int)GameScene.StartScene);
     }
 
     void OnDestroy()
@@ -161,5 +166,6 @@ public class MainSceneHUD : MonoBehaviour
         TouristController.OnGhostScared -= OnGhostsScared;
         TouristController.OnGhostRecovered -= OnGhostsRecovered;
         PacStudentController.OnPacStuDeath -= OnPacStuDeath;
+        //print("destoyed mainsceheHUD");
     }
 }

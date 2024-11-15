@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using LevelScripts;
 using UnityEngine;
 
 public enum TouristState
@@ -11,54 +12,70 @@ public enum TouristState
 }
 public class TouristController : MonoBehaviour
 {
-    public static TouristController instance;
+    public static TouristController Instance;
+    
     public GameObject TouristYellow;
     public GameObject TouristPink;
     public GameObject TouristBlue;
     public GameObject TouristRed;
 
+    private List<GameObject> tourists;
+    
     public static event Action OnGhostScared;
     public static event Action OnGhostRecovered;
+    
     public TouristState CurrentState = TouristState.TouristNormal;
     
     public float counter = 0;
     public static int GhostCounter = 10;
 
-    private List<Animator> animators;
+    private List<Transform> touristTrans => tourists.Select(x => x.transform).ToList();
+    private List<Animator> touristAnims => tourists.Select(x => x.GetComponent<Animator>()).ToList();
+    
     private List<Animator> scaredTourists = new List<Animator>();
-    private Animator YellowAnimator => TouristYellow.GetComponent<Animator>();
-    private Animator BlueAnimator => TouristBlue.GetComponent<Animator>();
-    private Animator RedAnimator => TouristRed.GetComponent<Animator>();
-    private Animator PinkAnimator => TouristPink.GetComponent<Animator>();
+
+    private LevelMapController map;
+    
     
     public void Initialise()
     {
-        instance = this;
-        animators = new List<Animator>();
+        map = LevelMapController.Instance;
         PPCollision.OnCollision += TouristScared;
-        animators.Add(YellowAnimator);
-        animators.Add(BlueAnimator);
-        animators.Add(PinkAnimator);
-        animators.Add(RedAnimator);
-    }
-    void Start()
-    {
+        tourists = new List<GameObject>();
+        tourists.Add(TouristYellow);
+        tourists.Add(TouristBlue);
+        tourists.Add(TouristPink);
+        tourists.Add(TouristRed);
         
+        PlaceTourists();
+        
+    }
+    void Awake()
+    {
+        Instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (MainSceneManager.CurrentGameState != MainGameState.GamePlaying) return;
         CurrentState = (scaredTourists.Count == 0) ? TouristState.TouristNormal : TouristState.TouristScared;
-
-
+        
     }
-    
 
+    private void PlaceTourists()
+    {
+        var count = 0;
+        foreach (var position in map.GhostStartPositions)
+        {
+            touristTrans[count].position = position;
+            count++;
+        }
+    }
     private void TouristScared()
     {
         scaredTourists.Clear();
-        foreach (Animator animator in animators)
+        foreach (Animator animator in touristAnims)
         {
             animator.SetBool("Scared", true);
             scaredTourists.Add(animator);
@@ -76,7 +93,7 @@ public class TouristController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             GhostCounter--;
             if(scaredTourists.Count == 0) break;
-            if (GhostCounter == 3) animators.ForEach(x => x.SetBool("Recovering",true));
+            if (GhostCounter == 3) touristAnims.ForEach(x => x.SetBool("Recovering",true));
         }
         
         OnGhostRecovered?.Invoke();
@@ -95,7 +112,7 @@ public class TouristController : MonoBehaviour
 
     public void KillTourist(GameObject tourist)
     {
-        Animator touristToKill = animators.FirstOrDefault(x => x.gameObject == tourist);
+        Animator touristToKill = touristAnims.FirstOrDefault(x => x.gameObject == tourist);
         Collider2D colliderToKill = tourist.GetComponent<Collider2D>();
         colliderToKill.enabled = false;
         scaredTourists.Remove(touristToKill);

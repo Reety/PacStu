@@ -59,7 +59,7 @@ namespace LevelScripts
         private LevelMapController _levelMapController;
         private int colliderRow = levelMap.GetLength(0) - 1;
 
-        private int[] colliderColumns = new int[]
+        private int[] colliderColumns = 
         {
             0,
             levelMap.GetLength(1) * 2 - 1,
