@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -24,6 +25,7 @@ namespace LevelScripts
         private Tilemap interactables;
         private Grid grid;
         private TileBase sPellet;
+        private WallTiles wallTiles;
 
         public Bounds SpawnArea;
         public Bounds TopSpawn; 
@@ -46,6 +48,9 @@ namespace LevelScripts
             }
 
         }
+
+        private List<Vector3> teleportArea = new();
+        
     
         // Start is called before the first frame update
         void Awake()
@@ -62,24 +67,54 @@ namespace LevelScripts
             if (!interactables.ContainsTile(sPellet)) MainSceneManager.MSManager.GameOver();
         }
 
-        public void Initialize(Tilemap walls, Tilemap interactables, Vector3[][] vectorMap, TileBase sPel)
+        public void Initialize(Tilemap walls, Tilemap interactables, Vector3[][] vectorMap, List<Vector3> teleportPoints, TileBase sPel)
         {
             this.walls = walls;
+            wallTiles = walls.GetComponent<WallTiles>();
             this.interactables = interactables;
             this.vectorMap = vectorMap;
             sPellet = sPel;
 
             grid = this.walls.layoutGrid;
+            teleportArea = teleportPoints.Select(GetCentre).ToList();
+            
+            CreateOuterWallColliders();
+            
 
         }
 
 
-        
+        private void CreateOuterWallColliders()
+        {
+            GameObject outerWall = new GameObject();
+            outerWall.AddComponent<EdgeCollider2D>();
+            outerWall.layer = LayerMask.NameToLayer("MazeBounds");
+            
+            var topWall = vectorMap[0];
+            var bottomWall = vectorMap[^1];
+            var topWallCollider = Instantiate(outerWall, Vector3.zero, Quaternion.identity).GetComponent<EdgeCollider2D>();
+            var bottomWallCollider = Instantiate(outerWall, Vector3.zero, Quaternion.identity).GetComponent<EdgeCollider2D>();
+            var leftWallCollider = Instantiate(outerWall, Vector3.zero, Quaternion.identity).GetComponent<EdgeCollider2D>();
+            var rightWallCollider = Instantiate(outerWall, Vector3.zero, Quaternion.identity).GetComponent<EdgeCollider2D>();
+            
+            topWallCollider.points = new Vector2[] { GetCentre(topWall[0]), GetCentre(topWall[^1]) };
+            bottomWallCollider.points = new Vector2[] { GetCentre(bottomWall[0]), GetCentre(bottomWall[^1]) };
+            leftWallCollider.points = new Vector2[] { GetCentre(topWall[0]), GetCentre(bottomWall[0]) };
+            rightWallCollider.points = new Vector2[] { GetCentre(topWall[^1]), GetCentre(bottomWall[^1]) };
+        }
         public Vector3 GetCentre(Vector3 point) => grid.GetCellCenterWorld(Vector3Int.FloorToInt(point));
     
         public bool IsWall(Vector3 point) => walls.HasTile(Vector3Int.FloorToInt(point));
 
         public bool IsPell(Vector3 point) => interactables.HasTile((Vector3Int.FloorToInt(point)));
+
+        public bool IsTeleportArea(Vector3 point) => teleportArea.Contains(point);
+
+        /*public bool IsOutsideWall(Vector3 point) => walls.GetTile(Vector3Int.FloorToInt(point)) == wallTiles.OutsideWall 
+                                                    || walls.GetTile(Vector3Int.FloorToInt(point)) == wallTiles.TJunction
+                                                    || IsOutsideCorner(point)
+                                                    || IsTeleportArea(point);*/
+        public bool IsOutsideCorner(Vector3 point) => (walls.GetTile(Vector3Int.FloorToInt(point)) == wallTiles.OutsideCorner);
 
     }
 }

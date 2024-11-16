@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
@@ -33,7 +34,7 @@ namespace LevelScripts
         private const int Empty = 0, OCorner = 1, OWall = 2, ICorner = 3, IWall = 4, Spel = 5, PPel = 6, TJunc = 7;
     
         private static int[,] levelMap = 
-        { 
+        {                               
             {1,2,2,2,2,2,2,2,2,2,2,2,2,7}, 
             {2,5,5,5,5,5,5,5,5,5,5,5,5,4}, 
             {2,5,3,4,4,3,5,3,4,4,4,3,5,4}, 
@@ -64,6 +65,8 @@ namespace LevelScripts
             0,
             levelMap.GetLength(1) * 2 - 1,
         };
+
+        private List<Vector3> teleportPoints = new();
     
 
         // Start is called before the first frame update
@@ -99,7 +102,7 @@ namespace LevelScripts
             PlaceTiles();
         
             _levelMapController = gameObject.GetComponent<LevelMapController>();
-            _levelMapController.Initialize(wallMap, pelMap, fullMapVector, sPellet);
+            _levelMapController.Initialize(wallMap, pelMap, fullMapVector, teleportPoints, sPellet);
         }
 
         // Update is called once per frame
@@ -164,8 +167,20 @@ namespace LevelScripts
                         case Spel:
                             pelMap.SetTile(Vector3Int.FloorToInt(currPos),sPellet);
                             break;
-                        case Empty:
-                            if (colliderRow==row && colliderColumns.Contains(col)) PlaceTeleportCollider(row,col,currPos);
+                        case Empty when row==colliderRow:
+                            if (colliderColumns.Contains(col))
+                            {
+                                PlaceTeleportCollider(row,col,currPos);
+                                teleportPoints.Add(currPos);
+                            }
+                            else if (fullMap[row-1][col] == OWall || fullMap[row-1][col] == OCorner)
+                                    teleportPoints.Add(currPos);
+                            break;
+                        case Empty when row==colliderRow+1:
+                            if (fullMap[row + 1][col] == OWall || fullMap[row + 1][col] == OCorner)
+                            {
+                                teleportPoints.Add(currPos);
+                            }
                             break;
                     }
 

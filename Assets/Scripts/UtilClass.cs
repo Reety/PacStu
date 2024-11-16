@@ -23,9 +23,13 @@ public static class UtilClass
     public static int Left = Animator.StringToHash("Left");
     public static int Down = Animator.StringToHash("Down");
     public static int Right = Animator.StringToHash("Right");
+    
     public static int Idle = Animator.StringToHash("Idle");
     public static int Death = Animator.StringToHash("Death");
     public static int Respawn = Animator.StringToHash("Respawn");
+
+    public static int Scared = Animator.StringToHash("Scared");
+    public static int Recovering = Animator.StringToHash("Recovering");
         
     public static Matrix4x4
         Rotate0 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 0)), 

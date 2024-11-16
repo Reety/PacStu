@@ -9,6 +9,8 @@ public class TouristBase : MonoBehaviour
     public Vector3 CurrentDirection;
     public Vector3 ReverseDirection => -CurrentDirection;
     public Vector3 SpawnPoint;
+    public Animator TouristAnimator => GetComponent<Animator>();
+    public int CurrentState => TouristAnimator.GetCurrentAnimatorStateInfo(0).tagHash;
     //public Tweener Tweener;
     public Vector3 Position => transform.position;
 
