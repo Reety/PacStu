@@ -7,7 +7,7 @@ public class BGM : MonoBehaviour
 {
     public static BGM instance;
     
-    public BGMState bgmState = BGMState.NormalBGM;
+    [FormerlySerializedAs("bgmState")] public BGMState BGMState = BGMState.NormalBGM;
     private AudioSource bgmPlayer;
     //public AudioClip introMusic;
     public AudioClip NormalBGM;
@@ -15,7 +15,6 @@ public class BGM : MonoBehaviour
     public AudioClip GhostDead;
 
     private bool updateBGM = true;
-    
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,31 +39,16 @@ public class BGM : MonoBehaviour
         if (MainSceneManager.CurrentGameState == MainGameState.GameStarting) return;
         if (!updateBGM) return;
         
-        bgmPlayer.clip = TouristController.Instance.CurrentState switch
+        bgmPlayer.clip = TouristController.Instance.BGMContext switch
         {
-            TouristState.TouristNormal when bgmPlayer.clip != NormalBGM => NormalBGM,
-            TouristState.TouristScared when bgmPlayer.clip != GhostScared => GhostScared,
+            BGMState.NormalBGM => NormalBGM,
+            BGMState.GhostScared => GhostScared,
+            BGMState.GhostDead => GhostDead,
             _ => bgmPlayer.clip
         };
 
         bgmPlayer.loop = true;
         if (!bgmPlayer.isPlaying) bgmPlayer.Play();
-    }
-
-    public void PlayGhostDead()
-    {
-        bgmPlayer.clip = GhostDead;
-        updateBGM = false;
-        bgmPlayer.loop = false;
-        StartCoroutine(StartGhostDead());
-    }
-
-    private IEnumerator StartGhostDead()
-    {
-        bgmPlayer.Play();
-        yield return new WaitForSeconds(GhostDead.length);
-        bgmPlayer.Stop();
-        updateBGM = true;
     }
     
 

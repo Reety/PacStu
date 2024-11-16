@@ -166,6 +166,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Scared
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6834294767574388378}
   m_Solo: 0
@@ -194,6 +197,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Recovering
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 5064112205091550406}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -218,9 +224,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Death
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Scared
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4729683369219176581}
@@ -253,6 +256,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Scared
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8091549651770050957}
   m_Solo: 0
@@ -280,6 +286,9 @@ AnimatorTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Recovering
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2078250657555741924}
@@ -371,6 +380,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Scared
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2078250657555741924}
@@ -513,6 +525,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Death
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Scared
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: -1088878953642565612}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -574,6 +589,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Scared
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7257152990159757101}

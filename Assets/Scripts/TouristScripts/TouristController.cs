@@ -48,15 +48,16 @@ public class TouristController : MonoBehaviour
     
     public float counter = 0;
     public static int GhostCounter = 10;
+    public BGMState BGMContext = BGMState.NormalBGM;
 
     private List<Transform> touristTrans => tourists.Select(x => x.transform).ToList();
     private List<Animator> touristAnims => tourists.Select(x => x.GetComponent<Animator>()).ToList();
     
-    private List<TouristBase> scaredTourists = new();
-    
     private LevelMapController map;
 
     private List<Func<Transform, Vector3>> directionMethods = new();
+
+    private bool TouristIsDead => tourists.Any(x => x.CurrentState == UtilClass.Death);
     
     
 
@@ -88,7 +89,14 @@ public class TouristController : MonoBehaviour
     void Update()
     {
         if (MainSceneManager.CurrentGameState != MainGameState.GamePlaying) return;
-        CurrentState = (scaredTourists.Count == 0) ? TouristState.TouristNormal : TouristState.TouristScared;
+        //CurrentState = (scaredTourists.Count == 0) ? TouristState.TouristNormal : TouristState.TouristScared;
+
+        if (TouristIsDead)
+            BGMContext = BGMState.GhostDead;
+        else
+        {
+            BGMContext = CurrentState == TouristState.TouristNormal ? BGMState.NormalBGM : BGMState.GhostScared;
+        }
         
         foreach (var touristBase in tourists)
         {
@@ -104,7 +112,8 @@ public class TouristController : MonoBehaviour
         {
             TouristNo touristType = (TouristNo)count;
             tourists[count].Initialise(touristType,position);
-            touristTrans[count].position = position;
+            tourists[count].transform.position = position;
+            tourists[count].SpawnPoint = position;
             count++;
         }
     }
@@ -112,7 +121,14 @@ public class TouristController : MonoBehaviour
     private void MoveTourist(TouristBase tourist)
     {
         
-        if (touristTweener.TweenExists(tourist.transform) || tourist.CurrentState==UtilClass.Death) return;
+        if (touristTweener.TweenExists(tourist.transform)) return;
+        
+        if (tourist.CurrentState == UtilClass.Death)
+        {
+            if (map.SpawnArea.Contains(tourist.transform.position)) return;
+            touristTweener.AddTween(tourist.transform, tourist.Position, tourist.SpawnPoint, 4.0f);
+            return;
+        }
         
         if (map.SpawnArea.Contains(tourist.Position))
         {
@@ -121,6 +137,7 @@ public class TouristController : MonoBehaviour
 
             return;
         }
+        
         
         
         var possibleMoves =
@@ -132,6 +149,12 @@ public class TouristController : MonoBehaviour
         {
             //var contains = possibleMoves.Any(x => x == tourist.LastPosition);
             var success = filteredMoves.Remove(tourist.LastPosition);
+        }
+        
+        if (tourist.CurrentState == UtilClass.Scared || tourist.CurrentState == UtilClass.Recovering)
+        {
+            BlueMove(tourist,filteredMoves);
+            return;
         }
 
         switch (tourist.TouristType)
@@ -251,15 +274,15 @@ public class TouristController : MonoBehaviour
 
     private void TouristScared()
     {
-        scaredTourists.Clear();
+        //scaredTourists.Clear();
         foreach (var tourist in tourists)
         {
             tourist.TouristAnimator.SetBool(UtilClass.Scared, true);
-            
-            scaredTourists.Add(tourist);
+            //touristTweener.CancelTween(tourist.transform);
+            //scaredTourists.Add(tourist);
         }
 
-        //CurrentState = TouristState.TouristScared;
+        CurrentState = TouristState.TouristScared;
         OnGhostScared?.Invoke();
         StartCoroutine(StartGhostCounter());
     }
@@ -270,15 +293,16 @@ public class TouristController : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             GhostCounter--;
-            if(scaredTourists.Count == 0) break;
+            //if(scaredTourists.Count == 0) break;
             if (GhostCounter == 3) touristAnims.ForEach(x => x.SetBool(UtilClass.Recovering,true));
         }
         
         OnGhostRecovered?.Invoke();
-        scaredTourists.ForEach(x => x.TouristAnimator.SetBool(UtilClass.Recovering,false));
-        scaredTourists.ForEach(x => x.TouristAnimator.SetBool(UtilClass.Scared,false));
-        scaredTourists.Clear();
-        //CurrentState = TouristState.TouristNormal;
+        Array.ForEach(tourists,x => x.TouristAnimator.SetBool(UtilClass.Recovering,false));
+        Array.ForEach(tourists,x => x.TouristAnimator.SetBool(UtilClass.Scared,false));
+        //scaredTourists.Clear();
+        CurrentState = TouristState.TouristNormal;
+
         GhostCounter = 10;
 
     }
@@ -294,27 +318,22 @@ public class TouristController : MonoBehaviour
         if (touristToKill == null) return;
         var colliderToKill = tourist.GetComponent<Collider2D>();
         colliderToKill.enabled = false;
-        scaredTourists.Remove(touristToKill);
         touristToKill.TouristAnimator.SetBool(UtilClass.Death,true);
-        touristToKill.TouristAnimator.SetBool(UtilClass.Recovering,false);
-        touristToKill.TouristAnimator.SetBool(UtilClass.Scared,false);
-        BGM.instance.PlayGhostDead();
         touristTweener.CancelTween(touristToKill.transform);
+        
         StartCoroutine(DeathCounter(touristToKill,colliderToKill));
     }
 
     private IEnumerator DeathCounter(TouristBase deadTourist, Collider2D touristCollider)
     {
-        touristTweener.AddTween(deadTourist.transform, deadTourist.Position, deadTourist.SpawnPoint, 5.0f);
         yield return new WaitForSeconds(5);
         deadTourist.TouristAnimator.SetBool(UtilClass.Death,false);
+        
         touristCollider.enabled = true;
     }
 
-    public bool TouristScared(GameObject tourist)
+    public bool IsTouristScared()
     {
-        if (scaredTourists.Count == 0) return false;
-        
-        return scaredTourists.Exists(x => x.gameObject == tourist);
+        return CurrentState == TouristState.TouristScared;
     }
 }

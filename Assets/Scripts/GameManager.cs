@@ -13,7 +13,7 @@ public enum BGMState
 {
     GhostScared,
     NormalBGM,
-    GhostDying
+    GhostDead
 }
 public class GameManager : MonoBehaviour
 {

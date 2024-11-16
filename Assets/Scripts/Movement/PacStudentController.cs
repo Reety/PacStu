@@ -167,7 +167,7 @@ public class PacStudentController : MonoBehaviour
 
     private void EnemyCollision(Collider2D other)
     {
-        if (!TouristController.Instance.TouristScared(other.gameObject))
+        if (!TouristController.Instance.IsTouristScared())
         {
             if (!pacstuDying) StartCoroutine(Death());
             return;
