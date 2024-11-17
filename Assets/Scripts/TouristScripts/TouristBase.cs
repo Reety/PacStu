@@ -6,8 +6,8 @@ public class TouristBase : MonoBehaviour
 {
     public TouristNo TouristType;
     public Vector3 LastPosition;
-    public Vector3 CurrentDirection;
-    public Vector3 ReverseDirection => -CurrentDirection;
+    public int LastTrigger = 1;
+    
     public Vector3 SpawnPoint;
     public Animator TouristAnimator => GetComponent<Animator>();
     public int CurrentState => TouristAnimator.GetCurrentAnimatorStateInfo(0).tagHash;

@@ -44,13 +44,14 @@ public class MainSceneManager : MonoBehaviour
 
     private void Start()
     {
-        Initialise();
+        //Initialise();
     }
 
     public void Initialise()
     {
         CurrentGameState = MainGameState.GameStarting;
-        
+        CurrentScore = 0;
+        CurrentTime = TimeSpan.Zero;
         mcCollider.enabled = false;
         cherryController.enabled = false;
         

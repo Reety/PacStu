@@ -18106,7 +18106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb32e1bd869119408437ea20b7e04f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmState: 1
+  BGMState: 1
   NormalBGM: {fileID: 8300000, guid: 7609b72bdc90ac64ea724d39e8cfe882, type: 3}
   GhostScared: {fileID: 8300000, guid: 384b4f2e8ef6e3c42a0c957fc98127c6, type: 3}
   GhostDead: {fileID: 8300000, guid: defed69d6baa50e479cc35ca487ff223, type: 3}
@@ -18289,7 +18289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1503737432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19205,6 +19205,7 @@ MonoBehaviour:
   TouristRed: {fileID: 996837521}
   CurrentState: 1
   counter: 0
+  BGMContext: 1
 --- !u!1 &2027917667
 GameObject:
   m_ObjectHideFlags: 0

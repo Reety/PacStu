@@ -18,6 +18,14 @@ public static class UtilClass
         [KeyCode.D] = Animator.StringToHash("Right"),
         [KeyCode.None] = Animator.StringToHash("Idle"),
     };
+    
+    public static Dictionary<Vector3, int> DirectionToAnimation = new Dictionary<Vector3, int>()
+    {
+        [Vector3.up] = Animator.StringToHash("Up"),
+        [Vector3.left] = Animator.StringToHash("Left"),
+        [Vector3.down] = Animator.StringToHash("Down"),
+        [Vector3.right] = Animator.StringToHash("Right"),
+    };
 
     public static int Up = Animator.StringToHash("Up");
     public static int Left = Animator.StringToHash("Left");

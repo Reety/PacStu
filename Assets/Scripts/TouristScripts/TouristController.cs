@@ -269,6 +269,16 @@ public class TouristController : MonoBehaviour
     private void MoveCell(TouristBase tourist,Vector3 endPos)
     {
         tourist.LastPosition = tourist.Position;
+        if (CurrentState == TouristState.TouristNormal)
+        {
+            int triggerKey = UtilClass.DirectionToAnimation[Vector3.Normalize(endPos-tourist.Position)];
+            if (tourist.LastTrigger != triggerKey)
+            {
+                tourist.TouristAnimator.SetTrigger(triggerKey);
+                tourist.LastTrigger = triggerKey;
+            }
+        }
+      
         touristTweener.AddTween(tourist.transform, tourist.Position, endPos, Duration);
     }
 
