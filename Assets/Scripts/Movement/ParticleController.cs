@@ -8,7 +8,7 @@ namespace Movement
         [SerializeField] ParticleSystem moveParticle;
         [SerializeField] private ParticleSystem deathParticle;
 
-        [SerializeField] private PacStudentController pacStu;
+        private IPlayableCharacter pacStu;
 
         public bool emitParticle = false;
         
@@ -29,9 +29,9 @@ namespace Movement
             Idle = Animator.StringToHash("Idle");
         
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
-        
+            pacStu = GetComponent<IPlayableCharacter>();
         }
 
         // Update is called once per frame

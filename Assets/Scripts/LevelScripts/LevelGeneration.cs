@@ -17,7 +17,7 @@ namespace LevelScripts
         public GameObject pPellet;
         public TileBase sPellet;
 
-        public Camera ortho;
+        public Camera ortho => Camera.main;
 
         private Grid grid;
         /*
@@ -57,7 +57,7 @@ namespace LevelScripts
         private static int[][] fullMap = new int[levelMap.GetLength(0) * 2 - 1][];
         private static Vector3[][] fullMapVector = new Vector3[fullMap.GetLength(0)][];
 
-        private LevelMapController _levelMapController;
+        private IMapController _levelMapController;
         private int colliderRow = levelMap.GetLength(0) - 1;
 
         private int[] colliderColumns = 
@@ -101,8 +101,8 @@ namespace LevelScripts
         
             PlaceTiles();
         
-            _levelMapController = gameObject.GetComponent<LevelMapController>();
-            _levelMapController.Initialize(wallMap, pelMap, fullMapVector, teleportPoints, sPellet);
+            _levelMapController = gameObject.GetComponent<IMapController>();
+            _levelMapController.Initialise(wallMap, pelMap, fullMapVector, teleportPoints, sPellet);
         }
 
         // Update is called once per frame

@@ -284,6 +284,7 @@ public class TouristController : MonoBehaviour
 
     private void TouristScared()
     {
+        if (CurrentState==TouristState.TouristScared) return;
         //scaredTourists.Clear();
         foreach (var tourist in tourists)
         {

@@ -7,10 +7,11 @@ using Movement;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 
-public class PacStudentController : MonoBehaviour, IPlayableCharacter
+public class L2PacStuController : MonoBehaviour, IPlayableCharacter
 {
-    [SerializeField] private float speed = 1.5f;
-    [SerializeField] private LevelMapController levelmap;
+    private float speed = 5.5f;
+
+    private IMapController levelmap;
 
     public static event Action OnPacStuDeath;
 
@@ -51,6 +52,7 @@ public class PacStudentController : MonoBehaviour, IPlayableCharacter
 
     public void Initialise()
     {
+        levelmap = Level2MapController.Instance;
         tweener = GetComponent<Tweener>();
         anim = GetComponent<Animator>();
         audioSrc = GetComponent<AudioSource>();
@@ -63,7 +65,7 @@ public class PacStudentController : MonoBehaviour, IPlayableCharacter
     void Update()
     {
  
-        if (MainSceneManager.CurrentGameState != MainGameState.GamePlaying) return;
+        if (Level2Manager.L2Manager.CurrentGameState != MainGameState.GamePlaying) return;
         
         if (Input.anyKeyDown) lastinput = GetInput();
         Move();
@@ -116,7 +118,7 @@ public class PacStudentController : MonoBehaviour, IPlayableCharacter
 
     private void PlayAudio()
     {
-        AudioClip toPlay = levelmap.IsPell(CurrentInputNextCell) ? pelAudio : moveAudio;
+        AudioClip toPlay = moveAudio;
         if (audioSrc.clip == toPlay && audioSrc.isPlaying) return;
         
         audioSrc.clip = toPlay;
@@ -152,28 +154,39 @@ public class PacStudentController : MonoBehaviour, IPlayableCharacter
             tweener.AddTween(transform, CurrentPosition, lastLerpablePosition, HitWallDuration);
             currentinput = KeyCode.None;
             audioSrc.Play();
+            StartCoroutine(Level2TouristController.Instance.SetAlert());
         }
-    }
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            EnemyCollision(other.collider);
+        }
 
+
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Teleport"))
             tweener.CancelTween(transform);
-        if (other.gameObject.CompareTag("Enemy"))
+        
+        
+        if (other.gameObject.CompareTag("PowerPellet"))
         {
-            EnemyCollision(other);
+            SetSpecialAudio(pelAudio);
+            audioSrc.Play();
+            Destroy(other.gameObject);
+            Level2TouristController.Instance.SlowDownTourists();
+        }
+        
+        if (other.gameObject.CompareTag("Flashlight"))
+        {
+            StartCoroutine(Death());
         }
     }
 
     private void EnemyCollision(Collider2D other)
     {
-        if (!TouristController.Instance.IsTouristScared())
-        {
-            if (!pacstuDying) StartCoroutine(Death());
-            return;
-        }
-        
-        TouristController.Instance.KillTourist(other.gameObject);
+        Level2TouristController.Instance.KillTourist(other.gameObject);
     }
 
     private IEnumerator Death()

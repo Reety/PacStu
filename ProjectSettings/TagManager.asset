@@ -14,6 +14,8 @@ TagManager:
   - Interactables
   - CherryController
   - MainMenuUI
+  - Flashlight
+  - PowerPellet
   layers:
   - Default
   - TransparentFX

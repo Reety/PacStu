@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace LevelScripts
 {
-    public class LevelMapController : MonoBehaviour
+    public class LevelMapController : MonoBehaviour, IMapController
     {
         /*
      * 0 - empty
@@ -27,8 +27,10 @@ namespace LevelScripts
         private TileBase sPellet;
         private WallTiles wallTiles;
 
-        public Bounds SpawnArea;
-        public Bounds TopSpawn; 
+        private Bounds spawnArea;
+        public Bounds SpawnArea => spawnArea;
+        private Bounds topSpawn;
+        public Bounds TopSpawn => topSpawn;
         public Bounds BottomSpawn; 
 
         private Vector3[][] vectorMap;
@@ -56,8 +58,8 @@ namespace LevelScripts
         void Awake()
         {
             Instance = this;
-            SpawnArea = new Bounds(new Vector3(1,0.5f), new Vector3(6,5));
-            TopSpawn = new Bounds(new Vector3(1,1.75f), new Vector3(6, 2.5f));
+            spawnArea = new Bounds(new Vector3(1,0.5f), new Vector3(6,5));
+            topSpawn = new Bounds(new Vector3(1,1.75f), new Vector3(6, 2.5f));
             BottomSpawn = new Bounds(new Vector3(1,-0.75f), new Vector3(6, 2.5f));
         }
 
@@ -67,7 +69,7 @@ namespace LevelScripts
             if (!interactables.ContainsTile(sPellet)) MainSceneManager.MSManager.GameOver();
         }
 
-        public void Initialize(Tilemap walls, Tilemap interactables, Vector3[][] vectorMap, List<Vector3> teleportPoints, TileBase sPel)
+        public void Initialise(Tilemap walls, Tilemap interactables, Vector3[][] vectorMap, List<Vector3> teleportPoints, TileBase sPel)
         {
             this.walls = walls;
             wallTiles = walls.GetComponent<WallTiles>();
@@ -102,6 +104,8 @@ namespace LevelScripts
             leftWallCollider.points = new Vector2[] { GetCentre(topWall[0]), GetCentre(bottomWall[0]) };
             rightWallCollider.points = new Vector2[] { GetCentre(topWall[^1]), GetCentre(bottomWall[^1]) };
         }
+        
+
         public Vector3 GetCentre(Vector3 point) => grid.GetCellCenterWorld(Vector3Int.FloorToInt(point));
     
         public bool IsWall(Vector3 point) => walls.HasTile(Vector3Int.FloorToInt(point));
@@ -114,7 +118,5 @@ namespace LevelScripts
                                                     || walls.GetTile(Vector3Int.FloorToInt(point)) == wallTiles.TJunction
                                                     || IsOutsideCorner(point)
                                                     || IsTeleportArea(point);*/
-        public bool IsOutsideCorner(Vector3 point) => (walls.GetTile(Vector3Int.FloorToInt(point)) == wallTiles.OutsideCorner);
-
     }
 }
