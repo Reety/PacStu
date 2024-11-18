@@ -176,12 +176,6 @@ namespace LevelScripts
                             else if (fullMap[row-1][col] == OWall || fullMap[row-1][col] == OCorner)
                                     teleportPoints.Add(currPos);
                             break;
-                        case Empty when row==colliderRow+1:
-                            if (fullMap[row + 1][col] == OWall || fullMap[row + 1][col] == OCorner)
-                            {
-                                teleportPoints.Add(currPos);
-                            }
-                            break;
                     }
 
                     currPos += Vector3.right;

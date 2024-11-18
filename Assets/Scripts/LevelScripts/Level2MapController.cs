@@ -58,7 +58,6 @@ public class Level2MapController : MonoBehaviour, IMapController
     // Update is called once per frame
     void Update()
     {
-        
     }
 
 
@@ -72,10 +71,14 @@ public class Level2MapController : MonoBehaviour, IMapController
 
         grid = this.walls.layoutGrid;
         teleportArea = teleportPoints.Select(GetCentre).ToList();
-
-        MazeExits[0] = teleportPoints.Where(t=>!IsWall(t)).OrderBy(t => t.x).First();
-        MazeExits[1] = teleportPoints.Where(t=>!IsWall(t)).OrderBy(t => t.x).Last();
         
+        MazeExits[0] = teleportPoints.Where(t => !IsWall(t)).
+            OrderBy(t => t.x).
+            Where((t,index) => index == teleportPoints.Count/2-1).First();
+
+        MazeExits[1] = teleportPoints.Where(t => !IsWall(t)).
+            OrderBy(t => t.x)
+            .Where((t, index) => index == teleportPoints.Count / 2).First();
         
         CreateOuterWallColliders();
         interactables.ClearAllTiles();

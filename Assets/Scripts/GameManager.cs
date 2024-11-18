@@ -7,13 +7,15 @@ using UnityEngine.SceneManagement;
 public enum GameScene
 {
     StartScene = 0,
-    MainScene = 1
+    MainScene = 1,
+    BonusScene = 2,
 }
 public enum BGMState
 {
     GhostScared,
     NormalBGM,
-    GhostDead
+    GhostDead,
+    GhostHypnotised,
 }
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     
     private MainSceneManager mainSceneManager;
+    
+    private Level2Manager bonusSceneManager;
    
     
     
@@ -66,6 +70,10 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("loading main scene");
                 mainSceneManager = MainSceneManager.MSManager;
                 mainSceneManager.Initialise();
+                break;
+            case ((int)GameScene.BonusScene) :
+                bonusSceneManager = Level2Manager.L2Manager;
+                bonusSceneManager.Initialise();
                 break;
         }
 

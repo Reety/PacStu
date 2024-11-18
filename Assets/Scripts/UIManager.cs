@@ -46,6 +46,17 @@ public class UIManager : MonoBehaviour
         highscore_time.text = $@"{SaveGameManager.CurrentHighScoreTime:mm\:ss\:ff}";
         
     }
+
+    public void QuitGame()
+    {
+        #if UNITY_STANDALONE
+            Application.Quit();
+        #endif
+        
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
     
 
     public void OnClick(int scene)
@@ -63,7 +74,7 @@ public class UIManager : MonoBehaviour
     private void LoadGameScene(int sceneIndex)
     {
         levelButtons.ButtonAnimOver -= LoadGameScene;
-        SceneManager.LoadScene((int)GameScene.MainScene);
+        SceneManager.LoadScene(sceneIndex);
         changingScene = false;
     }
     

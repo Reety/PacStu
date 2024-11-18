@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
@@ -43,12 +44,10 @@ public class Level2TouristController : MonoBehaviour
 
     private TouristBase[] tourists = new TouristBase[4];
 
-    public static event Action OnGhostScared;
+    public static event Action OnGhostKilled;
     
     public TouristState CurrentState = TouristState.TouristNormal;
     
-    public float counter = 0;
-    public static int GhostCounter = 10;
     public BGMState BGMContext = BGMState.NormalBGM;
     private List<Animator> touristAnims => tourists.Select(x => x.GetComponent<Animator>()).ToList();
     private Dictionary<TouristNo,Light2D> touristLight { get; } = new Dictionary<TouristNo,Light2D>();
@@ -59,12 +58,9 @@ public class Level2TouristController : MonoBehaviour
     private List<TouristBase> aliveTourists = new List<TouristBase>();
 
     private List<Func<Transform, Vector3>> directionMethods = new();
-
-    private bool AnyTouristDead => tourists.Any(x => x.CurrentState == UtilClass.Death);
-
-    private bool AllTouristDead => tourists.All(x => x.CurrentState == UtilClass.Death);
     
-    private bool TouristEscaped => tourists.Any(x=>!x.isActiveAndEnabled);
+    private bool AllTouristEscapedOrDead => tourists.All(x=>!x.isActiveAndEnabled || x.CurrentState == UtilClass.Death);
+
 
     private Dictionary<int, Vector3> MovementToLightDirection = new Dictionary<int, Vector3>()
     {
@@ -116,13 +112,17 @@ public class Level2TouristController : MonoBehaviour
     {
         if (Level2Manager.L2Manager.CurrentGameState != MainGameState.GamePlaying) return;
 
-        if (TouristEscaped || AllTouristDead)
+        if (AllTouristEscapedOrDead)
         {
             Level2Manager.L2Manager.GameOver();
         }
-        
+
         if (CurrentState == TouristState.TouristScared)
+        {
             currentMood = TouristMood.Scared;
+            if (!hypnotised) BGMContext = BGMState.GhostScared;
+        }
+            
         
         SetSpeed();
         
@@ -166,7 +166,7 @@ public class Level2TouristController : MonoBehaviour
     private void MoveTourist(TouristBase tourist)
     {
         
-        if (touristTweener.TweenExists(tourist.transform) || tourist.CurrentState == UtilClass.Death) return;
+        if (touristTweener.TweenExists(tourist.transform) || !aliveTourists.Contains(tourist)) return;
         
         
         if (map.SpawnArea.Contains(tourist.Position))
@@ -207,6 +207,12 @@ public class Level2TouristController : MonoBehaviour
 
     private void ScaredMove(TouristBase tourist) //runs to exit
     {
+        if (map.IsTeleportArea(tourist.Position))
+        {
+            var escapeDir = UtilClass.Directions.Find(x => UtilClass.DirectionToAnimation[x] == tourist.LastTrigger);
+            MoveCell(tourist,tourist.Position+escapeDir);
+            return;
+        }
         var possibleMoves =
             directionMethods.Select(direction => direction(tourist.transform)).Where(x => !map.IsWall(x) && !map.SpawnArea.Contains(x)).ToList();
 
@@ -243,7 +249,7 @@ public class Level2TouristController : MonoBehaviour
         
         MoveCell(tourist,possibleMoves[randomInd]);
     }
-
+   
 
     
     private float DistanceFromPacStu(Vector3 pos)
@@ -266,10 +272,10 @@ public class Level2TouristController : MonoBehaviour
             if (tourist.LastTrigger != triggerKey)
             {
                 tourist.TouristAnimator.SetTrigger(triggerKey);
-                tourist.LastTrigger = triggerKey;
             }
         }
         
+        tourist.LastTrigger = triggerKey;
         touristLight[tourist.TouristType].transform.rotation = Quaternion.Euler(MovementToLightDirection[triggerKey]);
         touristTweener.AddTween(tourist.transform, tourist.Position, endPos, Duration);
     }
@@ -285,7 +291,6 @@ public class Level2TouristController : MonoBehaviour
         }
 
         CurrentState = TouristState.TouristScared;
-        OnGhostScared?.Invoke();
     }
     
     private void HuntMove(TouristBase tourist, List<Vector3> possibleMoves) //tries to be as close to pacstu as possible
@@ -310,26 +315,31 @@ public class Level2TouristController : MonoBehaviour
     {
         if (hypnotised) return;
         hypnotised = true;
+        BGMContext = BGMState.GhostHypnotised;
         StartCoroutine(TouristSlow());
     }
 
     IEnumerator TouristSlow()
     {
+        
         yield return new WaitForSeconds(10.0f);
         hypnotised = false;
+        
+        BGMContext = CurrentState == TouristState.TouristScared ? BGMState.GhostScared : BGMState.NormalBGM;
     }
     
 
     public void KillTourist(GameObject tourist)
     {
         var touristToKill = tourists.FirstOrDefault(x => x.gameObject == tourist);
+        touristLight[touristToKill.TouristType].enabled = false;
         if (touristToKill == null) return;
         var colliderToKill = tourist.GetComponent<Collider2D>();
         colliderToKill.enabled = false;
         touristToKill.TouristAnimator.SetBool(UtilClass.Death,true);
         aliveTourists.Remove(touristToKill);
-        touristLight[touristToKill.TouristType].enabled = false;
         touristTweener.CancelTween(touristToKill.transform);
+        OnGhostKilled?.Invoke();
         //touristTweener.AddTween(tourist.transform, touristToKill.Position, touristToKill.SpawnPoint, Duration);
 
     }

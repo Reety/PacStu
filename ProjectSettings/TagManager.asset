@@ -16,6 +16,10 @@ TagManager:
   - MainMenuUI
   - Flashlight
   - PowerPellet
+  - Instruction
+  - Timer
+  - Score
+  - GameOver
   layers:
   - Default
   - TransparentFX

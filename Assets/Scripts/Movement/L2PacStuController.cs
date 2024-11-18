@@ -64,8 +64,12 @@ public class L2PacStuController : MonoBehaviour, IPlayableCharacter
     // Update is called once per frame
     void Update()
     {
- 
-        if (Level2Manager.L2Manager.CurrentGameState != MainGameState.GamePlaying) return;
+
+        if (Level2Manager.L2Manager.CurrentGameState != MainGameState.GamePlaying)
+        {
+            audioSrc.Stop();
+            return;
+        }
         
         if (Input.anyKeyDown) lastinput = GetInput();
         Move();
@@ -159,6 +163,11 @@ public class L2PacStuController : MonoBehaviour, IPlayableCharacter
         
         if (other.gameObject.CompareTag("Enemy"))
         {
+            foreach (var collider in other.gameObject.GetComponentsInChildren<Collider2D>())
+            {
+                collider.enabled = false;
+            }
+            
             EnemyCollision(other.collider);
         }
 
@@ -180,7 +189,8 @@ public class L2PacStuController : MonoBehaviour, IPlayableCharacter
         
         if (other.gameObject.CompareTag("Flashlight"))
         {
-            StartCoroutine(Death());
+            if (Level2TouristController.Instance.CurrentState == TouristState.TouristScared) return;
+            if (!pacstuDying) StartCoroutine(Death());
         }
     }
 

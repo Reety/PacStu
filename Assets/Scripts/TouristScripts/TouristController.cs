@@ -46,11 +46,9 @@ public class TouristController : MonoBehaviour
     
     public TouristState CurrentState = TouristState.TouristNormal;
     
-    public float counter = 0;
     public static int GhostCounter = 10;
     public BGMState BGMContext = BGMState.NormalBGM;
 
-    private List<Transform> touristTrans => tourists.Select(x => x.transform).ToList();
     private List<Animator> touristAnims => tourists.Select(x => x.GetComponent<Animator>()).ToList();
     
     private LevelMapController map;
@@ -249,8 +247,6 @@ public class TouristController : MonoBehaviour
                 })
             .OrderBy(x => x.dist).First().dir;
         
-        possibleMoves.ForEach(x=>Debug.DrawLine(closestWall.Value.point,x,Color.cyan));
-        
         MoveCell(tourist,finalMove);
 
     }
@@ -285,6 +281,7 @@ public class TouristController : MonoBehaviour
     private void TouristScared()
     {
         if (CurrentState==TouristState.TouristScared) return;
+        //print("active scared timer");
         //scaredTourists.Clear();
         foreach (var tourist in tourists)
         {
