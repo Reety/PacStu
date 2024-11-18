@@ -22996,16 +22996,30 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Decades after the death of the deceased popstar PacStu, their death has
-    become a Hollywood tourist hotspot. Lucky for them, PacStu treasures getting
-    to know their dedicated fans! \n\n1. Unfortunately your fans are having a bit
-    of trouble finding the entrance to the spectral plane where the meet and greet
-    is being hosted! Give them a nudge to bring them over to your side!\n\n2. Avoid
-    being caught by the flashlights! Not only will it disintegrate you, but your
-    fans are easily frightened and will try to escape!\n\n3. They're a bit anxious
-    so calm them down with one of your old hits! Your dulcet tones are sure to get
-    them to slow down and live in the moment.\n\n4. The game ends when you bring
-    all your fans into the ghostly dimension, or when one of them escapes!"
+  m_text: 'It''s been decades since you, PacStu, the nation''s #1 pop star, tragically
+    passed away. It''s not all bad though! Your once lonely home is suddenly bustling
+    with activity, and you know it must be your dedicated fans! Lucky for them, not
+    even death can separate you from your beloved PacManiacs.
+
+
+    1. Unfortunately
+    your fans are having a bit of trouble finding the entrance to the spectral plane
+    where the meet and greet is being hosted! Give them a nudge to bring them over
+    to your side.
+
+
+    2. Avoid being caught by the flashlights! Not only will it
+    disintegrate you, but your fans are easily frightened and will try to escape!
+
+
+    3.
+    Your fans seem a bit anxious! Pick up a microphone to soothe their nerves with
+    one of your old hits. Your dulcet tones are sure to get them to slow down and
+    live in the moment.
+
+
+    4. The game ends when all your fans have either escaped
+    or are with your safe in the spectral dimension.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0aa8cae3674846b43bb78ea73ea94f05, type: 2}
   m_sharedMaterial: {fileID: 2170520316745401262, guid: 0aa8cae3674846b43bb78ea73ea94f05, type: 2}

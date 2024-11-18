@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LevelScripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public enum MainGameState
@@ -19,7 +20,7 @@ public class MainSceneManager : MonoBehaviour
     public static MainGameState CurrentGameState;
     
     [SerializeField] public PacStudentController mcController;
-    [SerializeField] public TouristController touristController;
+    [FormerlySerializedAs("touristController")] [SerializeField] public GhostController ghostController;
     [SerializeField] BGM bgmController;
     [SerializeField] MainSceneHUD mainSceneHUD;
     [SerializeField] CherryController cherryController;
@@ -55,7 +56,7 @@ public class MainSceneManager : MonoBehaviour
         mcCollider.enabled = false;
         cherryController.enabled = false;
         
-        touristController.Initialise();
+        ghostController.Initialise();
         mcController.Initialise();
         bgmController.Initialise();
         

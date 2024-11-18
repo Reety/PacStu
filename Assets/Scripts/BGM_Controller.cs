@@ -39,7 +39,7 @@ public class BGM : MonoBehaviour
         if (MainSceneManager.CurrentGameState == MainGameState.GameStarting) return;
         if (!updateBGM) return;
         
-        bgmPlayer.clip = TouristController.Instance.BGMContext switch
+        bgmPlayer.clip = GhostController.Instance.BGMContext switch
         {
             BGMState.NormalBGM => NormalBGM,
             BGMState.GhostScared => GhostScared,

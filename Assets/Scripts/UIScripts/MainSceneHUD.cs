@@ -37,8 +37,8 @@ public class MainSceneHUD : MonoBehaviour
         
         PelletCollision.OnCollision += UpdateScorePellet;
         CherryCollision.OnCollision += UpdateScoreCherry;
-        TouristController.OnGhostScared += OnGhostsScared;
-        TouristController.OnGhostRecovered += OnGhostsRecovered;
+        GhostController.OnGhostScared += OnGhostsScared;
+        GhostController.OnGhostRecovered += OnGhostsRecovered;
         PacStudentController.OnPacStuDeath += OnPacStuDeath;
         
         StartCoroutine(StartGameCountDown());
@@ -75,7 +75,7 @@ public class MainSceneHUD : MonoBehaviour
     {
         if (GhostTimer.gameObject.activeSelf)
         {
-            GhostTimer.text = TouristController.GhostCounter.ToString();
+            GhostTimer.text = GhostController.GhostCounter.ToString();
         }
     }
 
@@ -163,8 +163,8 @@ public class MainSceneHUD : MonoBehaviour
     {
         PelletCollision.OnCollision -= UpdateScorePellet;
         CherryCollision.OnCollision -= UpdateScoreCherry;
-        TouristController.OnGhostScared -= OnGhostsScared;
-        TouristController.OnGhostRecovered -= OnGhostsRecovered;
+        GhostController.OnGhostScared -= OnGhostsScared;
+        GhostController.OnGhostRecovered -= OnGhostsRecovered;
         PacStudentController.OnPacStuDeath -= OnPacStuDeath;
         //print("destoyed mainsceheHUD");
     }

@@ -26,11 +26,11 @@ public enum TouristNo
     TouristRed = 2,
     TouristYellow = 3,
 }
-public class TouristController : MonoBehaviour
+public class GhostController : MonoBehaviour
 {
     private float speed = 3.5f;
     private float Duration => 1 / speed;
-    public static TouristController Instance;
+    public static GhostController Instance;
     private Tweener touristTweener;
     
     public GameObject TouristYellow;

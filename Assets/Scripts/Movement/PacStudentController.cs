@@ -167,13 +167,13 @@ public class PacStudentController : MonoBehaviour, IPlayableCharacter
 
     private void EnemyCollision(Collider2D other)
     {
-        if (!TouristController.Instance.IsTouristScared())
+        if (!GhostController.Instance.IsTouristScared())
         {
             if (!pacstuDying) StartCoroutine(Death());
             return;
         }
         
-        TouristController.Instance.KillTourist(other.gameObject);
+        GhostController.Instance.KillTourist(other.gameObject);
     }
 
     private IEnumerator Death()
